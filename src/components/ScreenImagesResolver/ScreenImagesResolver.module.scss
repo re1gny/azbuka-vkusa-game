@@ -1,0 +1,54 @@
+.wrapper {
+  position: relative;
+}
+
+.image {
+  position: absolute;
+  transition: opacity 0.5s;
+
+  &.broccoli {
+    width: calc(164px * var(--size-ratio));
+    height: calc(222px * var(--size-ratio));
+    left: 0;
+    top: calc(7px * var(--size-ratio));
+  }
+
+  &.croissant {
+    width: calc(237px * var(--size-ratio));
+    height: calc(368px * var(--size-ratio));
+    right: 0;
+    top: calc(26px * var(--size-ratio));
+  }
+
+  &.egg {
+    width: calc(375px * var(--size-ratio));
+    height: calc(631px * var(--size-ratio));
+    left: 0;
+    bottom: 0;
+  }
+
+  &.toast {
+    width: calc(273px * var(--size-ratio));
+    height: calc(193px * var(--size-ratio));
+    right: 0;
+    bottom: 0;
+  }
+
+  &.muted {
+    &.broccoli {
+      opacity: 0.3;
+    }
+
+    &.croissant {
+      opacity: 0.3;
+    }
+
+    &.egg {
+      opacity: 0.5;
+    }
+
+    &.toast {
+      opacity: 0.4;
+    }
+  }
+}
