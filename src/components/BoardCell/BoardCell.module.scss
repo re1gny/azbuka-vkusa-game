@@ -1,0 +1,9 @@
+.boardCell {
+  width: calc(var(--size) * var(--size-ratio));
+  height: calc(var(--size) * var(--size-ratio));
+  border-width: calc(var(--border-width) * var(--size-ratio));
+  border-color: var(--border-color);
+  border-style: solid;
+  border-radius: calc(8px * var(--size-ratio));
+  background-color: var(--background-color);
+}

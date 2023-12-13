@@ -1,7 +1,7 @@
 $target-width: 375px;
 $target-height: 667px;
 $offset: 20px;
-$min-mockup-width: $target-width + (2 * $offset);
+$min-mockup-width: 450px;
 
 :export {
   targetWidth: $target-width;

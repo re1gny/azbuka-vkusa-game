@@ -1,0 +1,43 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(32px * var(--size-ratio)) calc(30px * var(--size-ratio));
+}
+
+.logo {
+  width: calc(165px * var(--size-ratio));
+  height: calc(23px * var(--size-ratio));
+}
+
+.titleWrapper {
+  position: relative;
+}
+
+.title {
+  margin-top: calc(74.77px * var(--size-ratio));
+  line-height: calc(48px * var(--size-ratio));
+}
+
+.line {
+  position: absolute;
+  left: 50%;
+  bottom: calc(4.22px * var(--size-ratio));
+  transform: translateX(-50%);
+  width: calc(207px * var(--size-ratio));
+  height: calc(24px * var(--size-ratio));
+}
+
+.subTitle {
+  width: calc(272.29px * var(--size-ratio));
+  height: calc(60.23px * var(--size-ratio));
+  margin-top: calc(9.8px * var(--size-ratio));
+}
+
+.description {
+  margin-top: calc(32.2px * var(--size-ratio));
+}
+
+.nextButton {
+  margin-top: calc(40px * var(--size-ratio));
+}

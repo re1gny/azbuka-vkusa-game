@@ -3,7 +3,15 @@ import cn from 'classnames'
 import styles from './Button.module.scss'
 
 export function Button(props) {
-    const {className, children, width = '100%', height = 'auto', color = '#6DB63D', as = 'button'} = props
+    const {
+        className,
+        children,
+        width = '100%',
+        height = 'auto',
+        color = '#6DB63D',
+        as = 'button',
+        onClick,
+    } = props
 
     const formattedWidth = useMemo(() => {
         if (typeof width === 'number') {
@@ -25,7 +33,8 @@ export function Button(props) {
         as,
         {
             className: cn(styles.button, className),
-            style: {width: formattedWidth, height: formattedHeight, '--background-color': color}
+            style: {width: formattedWidth, height: formattedHeight, '--background-color': color},
+            onClick,
         },
         children,
     )

@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(100px * var(--size-ratio)) calc(34px * var(--size-ratio));
+}
+
+.findJobWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: calc(30px * var(--size-ratio));
+}
+
+.findJobButton {
+  margin-top: calc(10px * var(--size-ratio));
+}
+
+.tryAgainWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: calc(65px * var(--size-ratio));
+}
+
+.tryAgainButton {
+  margin-top: calc(14px * var(--size-ratio));
+}
