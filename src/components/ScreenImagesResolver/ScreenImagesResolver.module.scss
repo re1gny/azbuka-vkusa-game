@@ -4,7 +4,7 @@
 
 .image {
   position: absolute;
-  transition: opacity 0.5s;
+  transition: opacity 800ms;
 
   &.broccoli {
     width: calc(164px * var(--size-ratio));

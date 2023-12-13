@@ -1,10 +1,12 @@
 import cn from "classnames";
 import {Text} from "../../../Text";
 import {Button} from "../../../Button";
+import {useProgress} from "../../../../contexts/ProgressContext";
 import styles from "./LoseContent.module.scss";
 
 export function LoseContent(props) {
     const {className} = props
+    const {reset} = useProgress()
 
     return (
         <div className={cn(styles.wrapper, className)}>
@@ -17,7 +19,7 @@ export function LoseContent(props) {
             </div>
             <div className={styles.tryAgainWrapper}>
                 <Text size={20}>Или&nbsp;ещё&nbsp;раз попробуй угадать слова, чтобы&nbsp;<Text as="span" size={20} weight={500}>участвовать в&nbsp;розыгрыше</Text></Text>
-                <Button className={styles.tryAgainButton} width={284} height={44}>
+                <Button className={styles.tryAgainButton} width={284} height={44} onClick={reset}>
                     <Text as="span" size={20} weight={500} color="#FFFFFF">Играть снова</Text>
                 </Button>
             </div>

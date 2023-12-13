@@ -1,0 +1,33 @@
+$animation-duration: 400ms;
+$animation-name: screen-switch;
+
+:export {
+  animationDuration: $animation-duration;
+  animationName: $animation-name;
+}
+
+:global(.#{$animation-name}-enter) {
+  &.content {
+    opacity: 0;
+  }
+}
+
+:global(.#{$animation-name}-enter-active) {
+  &.content {
+    opacity: 1;
+    transition: opacity $animation-duration;
+  }
+}
+
+:global(.#{$animation-name}-exit) {
+  &.content {
+    opacity: 1;
+  }
+}
+
+:global(.#{$animation-name}-exit-active) {
+  &.content {
+    opacity: 0;
+    transition: opacity $animation-duration;
+  }
+}
