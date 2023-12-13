@@ -1,0 +1,14 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  width: var(--width);
+  height: var(--height);
+  border-radius: calc(8px * var(--size-ratio));
+  background-color: var(--background-color);
+  font-family: 'AzbukaVkusa', sans-serif;
+  line-height: 1.2;
+  cursor: pointer;
+}

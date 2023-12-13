@@ -1,0 +1,10 @@
+.panel {
+  width: 100%;
+  background-color: #FFF6DB;
+  border-radius: calc(12px * var(--size-ratio));
+  padding: calc(var(--padding-top) * var(--size-ratio)) calc(var(--padding-right) * var(--size-ratio)) calc(var(--padding-bottom) * var(--size-ratio)) calc(var(--padding-left) * var(--size-ratio));
+}
+
+.withBorder {
+  border: calc(2px * var(--size-ratio)) solid #0B4F38;
+}

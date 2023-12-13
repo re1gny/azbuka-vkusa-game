@@ -1,0 +1,10 @@
+.text {
+  font-family: 'AzbukaVkusa', sans-serif;
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.2;
+  font-size: calc(var(--font-size) * var(--size-ratio));
+  font-weight: var(--font-weight);
+  color: var(--color);
+  text-align: var(--text-align);
+}
