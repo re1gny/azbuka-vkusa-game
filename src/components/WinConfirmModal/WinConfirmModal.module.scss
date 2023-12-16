@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(16px * var(--size-ratio));
+}
+
+.title {
+  text-transform: uppercase;
+}
+
+.description1 {
+  margin-top: calc(8px * var(--size-ratio));
+}
+
+.description2, .finishButton, .continueButton {
+  margin-top: calc(21px * var(--size-ratio));
+}

@@ -1,0 +1,71 @@
+$animation-duration: 200ms;
+$animation-name: modal-show;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #181717A6;
+  padding: calc(28px * var(--size-ratio));
+  z-index: 9999;
+}
+
+.content {
+  width: 100%;
+  border-radius: calc(12px * var(--size-ratio));
+  background-color: #FFF6DB;
+}
+
+:export {
+  animationDuration: $animation-duration;
+  animationName: $animation-name;
+}
+
+:global(.#{$animation-name}-enter) {
+  &.wrapper {
+    opacity: 0;
+  }
+
+  .content {
+    transform: scale(0.9);
+  }
+}
+
+:global(.#{$animation-name}-enter-active) {
+  &.wrapper {
+    opacity: 1;
+    transition: opacity $animation-duration;
+  }
+
+  .content {
+    transform: scale(1);
+    transition: transform $animation-duration;
+  }
+}
+
+:global(.#{$animation-name}-exit) {
+  &.wrapper {
+    opacity: 1;
+  }
+
+  .content {
+    transform: scale(1);
+  }
+}
+
+:global(.#{$animation-name}-exit-active) {
+  &.wrapper {
+    opacity: 0;
+    transition: opacity $animation-duration;
+  }
+
+  .content {
+    transform: scale(0.9);
+    transition: transform $animation-duration;
+  }
+}

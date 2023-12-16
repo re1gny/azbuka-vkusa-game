@@ -1,3 +1,11 @@
+$success-text-animation-duration: 400ms;
+$success-text-animation-name: success-text;
+
+:export {
+  successTextAnimationDuration: $success-text-animation-duration;
+  successTextAnimationName: $success-text-animation-name;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -65,5 +73,35 @@
 .action {
   & + & {
     margin-left: calc(11.5px * var(--size-ratio));
+  }
+}
+
+:global(.#{$success-text-animation-name}-enter) {
+  &.successText {
+    opacity: 0;
+    transform: translate(-50%, 20%);
+  }
+}
+
+:global(.#{$success-text-animation-name}-enter-active) {
+  &.successText {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition: opacity $success-text-animation-duration, transform $success-text-animation-duration;
+  }
+}
+
+:global(.#{$success-text-animation-name}-exit) {
+  &.successText {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+:global(.#{$success-text-animation-name}-exit-active) {
+  &.successText {
+    opacity: 0;
+    transform: translate(-50%, -20%);
+    transition: opacity $success-text-animation-duration, transform $success-text-animation-duration;
   }
 }

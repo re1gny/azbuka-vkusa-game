@@ -1,13 +1,34 @@
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useMemo, useRef, useState} from "react";
 import {produce} from "immer";
-import {BREAKFAST_WORDS, CAREER_WORDS, MAX_BOARDS} from "../constants/game";
+import {
+    BREAKFAST_WORDS,
+    CAREER_WORDS,
+    MAX_BOARDS,
+    REQUIRED_BREAKFAST_WORDS,
+    REQUIRED_CAREER_WORDS,
+    SUCCESS_TEXTS
+} from "../constants/game";
 import {getLast} from "../utils/getLast";
 import {createBoard} from "../utils/createBoard";
 import {getChars} from "../utils/getChars";
 import {createChars} from "../utils/createChars";
 import {isSameBoardCell} from "../utils/isSameBoardCell";
+import {parseBoard} from "../utils/parseBoard";
+import {shuffleArray} from "../utils/shuffleArray";
 
-export function useGame(initialBoardsState) {
+export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
+    const [unknownWordErrorShown, setUnknownWordErrorShown] = useState(false)
+    const [unknownWordErrorParam, setUnknownWordErrorParam] = useState(null)
+    const [repeatedWordErrorShown, setRepeatedWordErrorShown] = useState(false)
+    const [repeatedWordErrorParam, setRepeatedWordErrorParam] = useState(null)
+    const [multipleWordsErrorShown, setMultipleWordsErrorShow] = useState(false)
+    const [multipleWordsErrorParam, setMultipleWordsErrorParam] = useState(null)
+    const [wordInfoShown, setWordInfoShown] = useState(false)
+    const [wordInfoParam, setWordInfoParam] = useState(null)
+    const [winConfirmShown, setWinConfirmShown] = useState(false)
+    const [successTextShown, setSuccessTextShown] = useState(false)
+    const [successText, setSuccessText] = useState(null)
+    const successTextTimerRef = useRef()
     const [careerWords, setCareerWords] = useState([])
     const [breakfastWords, setBreakfastWords] = useState([])
     const [boards, setBoards] = useState([createBoard(initialBoardsState?.[0])])
@@ -41,6 +62,7 @@ export function useGame(initialBoardsState) {
 
     const completeBoard = useCallback(() => {
         if (boards.length >= MAX_BOARDS) {
+            onComplete?.()
             return
         }
 
@@ -48,19 +70,109 @@ export function useGame(initialBoardsState) {
             getLast(draft).selected = null
             draft.push(createBoard(initialBoardsState?.[draft.length]))
         }))
-    }, [boards, initialBoardsState])
+    }, [boards, initialBoardsState, onComplete])
 
-    const completeWord = useCallback(() => {
-        const word = ''
-        const positions = [0, 0]
+    const showUnknownWordError = useCallback((word) => {
+        setUnknownWordErrorShown(true)
+        setUnknownWordErrorParam(word)
+    }, [])
 
-        if (CAREER_WORDS.includes(word)) {
-            setCareerWords([...careerWords, word])
-        } else if (BREAKFAST_WORDS.includes(word)) {
-            setBreakfastWords([...breakfastWords, word])
+    const closeUnknownWordError = useCallback(() => {
+        setUnknownWordErrorShown(false)
+    }, [])
+
+    const showRepeatedWordError = useCallback((word) => {
+        setRepeatedWordErrorShown(true)
+        setRepeatedWordErrorParam(word)
+    }, [])
+
+    const closeRepeatedWordError = useCallback(() => {
+        setRepeatedWordErrorShown(false)
+    }, [])
+
+    const showMultipleWordsError = useCallback((words) => {
+        setMultipleWordsErrorShow(true)
+        setMultipleWordsErrorParam(words)
+    }, [])
+
+    const closeMultipleWordsError = useCallback(() => {
+        setMultipleWordsErrorShow(false)
+    }, [])
+
+    const showWordInfo = useCallback((word) => {
+        setWordInfoShown(true)
+        setWordInfoParam(word)
+    }, [])
+
+    const closeWordInfo = useCallback(() => {
+        setWordInfoShown(false)
+    }, [])
+
+    const showWinConfirm = useCallback(() => {
+        setWinConfirmShown(true)
+    }, [])
+
+    const closeWinConfirm = useCallback(() => {
+        setWinConfirmShown(false)
+    }, [])
+
+    const showSuccessText = useCallback(() => {
+        function showText() {
+            const randomSuccessTexts = shuffleArray(SUCCESS_TEXTS)
+            setSuccessText(randomSuccessTexts[0] === successText ? randomSuccessTexts[1] : randomSuccessTexts[0])
+            setSuccessTextShown(true)
+            successTextTimerRef.current = setTimeout(() => {
+                setSuccessTextShown(false)
+                successTextTimerRef.current = undefined
+            }, 3000)
         }
 
-        produce(boards, (draft) => {
+        if (successTextTimerRef.current) {
+            clearTimeout(successTextTimerRef.current)
+            successTextTimerRef.current = undefined
+            setSuccessTextShown(false)
+            setTimeout(showText, 0)
+        } else {
+            showText()
+        }
+    }, [successText])
+
+    const completeWord = useCallback(() => {
+        const {newEntries} = parseBoard(getLast(boards))
+
+        if (newEntries.length === 0) {
+            return
+        }
+
+        if (newEntries.length > 1) {
+            showMultipleWordsError(newEntries.map(({word}) => word))
+            return
+        }
+
+        const {word, positions} = newEntries[0]
+        const newCareerWords = [...careerWords, word]
+        const newBreakfastWords = [...breakfastWords, word]
+
+        if (CAREER_WORDS.includes(word)) {
+            if (careerWords.includes(word)) {
+                showRepeatedWordError(word)
+                return
+            } else {
+                setCareerWords(newCareerWords)
+            }
+        } else if (BREAKFAST_WORDS.includes(word)) {
+            if (breakfastWords.includes(word)) {
+                showRepeatedWordError(word)
+                return
+            } else {
+                setBreakfastWords(newBreakfastWords)
+            }
+        } else {
+            showUnknownWordError(word)
+            return
+        }
+
+        setBoards(produce(boards, (draft) => {
             const board = getLast(draft)
             board.selected = null
             positions.forEach(([x, y]) => {
@@ -69,8 +181,30 @@ export function useGame(initialBoardsState) {
                 }
                 board.confirmed[y][x] = true
             })
-        })
-    }, [careerWords, breakfastWords, boards])
+        }))
+
+        if (wordsWithInfo.includes(word)) {
+            showWordInfo(word)
+        }
+
+        if (newCareerWords.length >= REQUIRED_CAREER_WORDS && newBreakfastWords.length >= REQUIRED_BREAKFAST_WORDS) {
+            onWin?.()
+            showWinConfirm()
+        }
+
+        showSuccessText()
+    }, [
+        wordsWithInfo,
+        careerWords,
+        breakfastWords,
+        boards,
+        showSuccessText,
+        showMultipleWordsError,
+        showUnknownWordError,
+        showRepeatedWordError,
+        showWordInfo,
+        showWinConfirm,
+    ])
 
     const refreshChars = useCallback(() => {
         setChars(createChars(chars.available))
@@ -99,7 +233,43 @@ export function useGame(initialBoardsState) {
         }))
     }, [boards, chars])
 
+    const processedParams = useMemo(() => {
+        if (wordInfoShown) {
+            return {
+                wordInfoShown: true,
+                winConfirmShown: false,
+            }
+        }
+
+        return {
+            wordInfoShown,
+            winConfirmShown,
+        }
+    }, [wordInfoShown, winConfirmShown])
+
     return {
+        successText,
+        successTextShown,
+        showSuccessText,
+        wordInfoShown,
+        wordInfoParam,
+        showWordInfo,
+        closeWordInfo,
+        winConfirmShown,
+        showWinConfirm,
+        closeWinConfirm,
+        unknownWordErrorShown,
+        unknownWordErrorParam,
+        showUnknownWordError,
+        closeUnknownWordError,
+        repeatedWordErrorShown,
+        repeatedWordErrorParam,
+        showRepeatedWordError,
+        closeRepeatedWordError,
+        multipleWordsErrorShown,
+        multipleWordsErrorParam,
+        showMultipleWordsError,
+        closeMultipleWordsError,
         careerWords,
         breakfastWords,
         boards,
@@ -111,5 +281,6 @@ export function useGame(initialBoardsState) {
         completeWord,
         refreshChars,
         clearChar,
+        ...processedParams,
     }
 }
