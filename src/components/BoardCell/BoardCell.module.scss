@@ -1,9 +1,32 @@
 .boardCell {
-  width: calc(var(--size) * var(--size-ratio));
-  height: calc(var(--size) * var(--size-ratio));
-  border-width: calc(var(--border-width) * var(--size-ratio));
-  border-color: var(--border-color);
-  border-style: solid;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(35px * var(--size-ratio));
+  height: calc(35px * var(--size-ratio));
+  border: calc(1.2px * var(--size-ratio)) solid #0B4F38;
   border-radius: calc(8px * var(--size-ratio));
-  background-color: var(--background-color);
+  background-color: #FFF2C4;
+}
+
+.available {
+  cursor: pointer;
+}
+
+.withChar {
+  background-color: #DAFFC2;
+  transition: background-color 200ms;
+}
+
+.confirmed {
+  background-color: #6DB63D;
+  transition: background-color 200ms;
+}
+
+.selected {
+  border: calc(2.5px * var(--size-ratio)) solid #0B4F38;
+  background-color: #DAFFC2;
+  transition: background-color 200ms;
+  z-index: 1;
 }

@@ -1,9 +1,9 @@
 import {WinContent} from "./WinContent";
 import {LoseContent} from "./LoseContent";
-import {getUrlParam} from "../../../utils/getUrlParam";
+import {useProgress} from "../../../contexts/ProgressContext";
 
 export function FinalScreen() {
-    const win = getUrlParam('win') === 'true'
+    const {isWin} = useProgress()
 
-    return win ? <WinContent /> : <LoseContent />
+    return isWin ? <WinContent /> : <LoseContent />
 }

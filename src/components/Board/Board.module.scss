@@ -1,0 +1,18 @@
+.board {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+
+  & + & {
+    margin-top: calc(-1.2px * var(--size-ratio));
+  }
+}
+
+.cell {
+  & + & {
+    margin-left: calc(-1.2px * var(--size-ratio));
+  }
+}

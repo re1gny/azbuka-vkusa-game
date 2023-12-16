@@ -1,27 +1,23 @@
 import cn from 'classnames'
+import {Text} from "../Text";
 import styles from './BoardCell.module.scss'
 
 export function BoardCell(props) {
-    const {
-        className,
-        children,
-        size = 35,
-        border = 1.2,
-        color = '#6DB63D',
-        borderColor = '#0B4F38',
-    } = props
+    const {className, char, selected, confirmed, available, onClick} = props
 
     return (
         <div
-            className={cn(styles.boardCell, className)}
-            style={{
-                '--size': `${size}px`,
-                '--border-width': `${border}px`,
-                '--background-color': color,
-                '--border-color': borderColor,
-            }}
+            className={cn(
+                styles.boardCell,
+                selected && styles.selected,
+                confirmed && styles.confirmed,
+                available && styles.available,
+                !!char && styles.withChar,
+                className,
+            )}
+            onClick={onClick}
         >
-            {children}
+            {!!char && <Text size={20} weight={400} color={confirmed ? '#FFFFFF' : '#0B4F38'}>{char}</Text>}
         </div>
     )
 }

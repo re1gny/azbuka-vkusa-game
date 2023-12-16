@@ -1,0 +1,69 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(20px * var(--size-ratio)) calc(44px * var(--size-ratio));
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: calc(150px * var(--size-ratio));
+  height: calc(21px * var(--size-ratio));
+}
+
+.boardNumber {
+  margin-left: calc(16.5px * var(--size-ratio));
+}
+
+.helpButton {
+  margin-left: calc(15px * var(--size-ratio));
+  border-radius: 50%;
+}
+
+.progresses {
+  display: flex;
+  align-items: center;
+  margin-top: calc(36.42px * var(--size-ratio));
+}
+
+.progress {
+  width: calc(132px * var(--size-ratio));
+
+  & + & {
+    margin-left: calc(16px * var(--size-ratio));
+  }
+}
+
+.successTextWrapper {
+  position: relative;
+}
+
+.successText {
+  position: absolute;
+  top: calc(9px * var(--size-ratio));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.board {
+  margin-top: calc(33px * var(--size-ratio));
+}
+
+.chars {
+  margin-top: calc(19px * var(--size-ratio));
+}
+
+.actions {
+  display: flex;
+  margin-top: calc(19px * var(--size-ratio));
+}
+
+.action {
+  & + & {
+    margin-left: calc(11.5px * var(--size-ratio));
+  }
+}
