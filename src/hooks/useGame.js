@@ -40,12 +40,7 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
         const words = entries.map(({word}) => word)
         return words.filter(word => BREAKFAST_WORDS.includes(word))
     })
-    const [chars, setChars] = useState(() => {
-        return createChars(shuffleArray(getChars(
-            ...CAREER_WORDS.filter(word => !careerWords.includes(word)),
-            ...BREAKFAST_WORDS.filter(word => !breakfastWords.includes(word)),
-        )))
-    })
+    const [chars, setChars] = useState(createChars(shuffleArray(getChars(...CAREER_WORDS, ...BREAKFAST_WORDS))))
     const board = useMemo(() => getLast(boards), [boards])
 
     const selectCell = useCallback((position) => {
