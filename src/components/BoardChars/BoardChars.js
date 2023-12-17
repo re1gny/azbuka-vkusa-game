@@ -19,7 +19,7 @@ export function BoardChars(props) {
                     <div
                         key={index}
                         className={cn(styles.boardChar, !!cell && styles.empty)}
-                        onClick={() => onSelect(char, index)}
+                        onClick={() => onSelect?.(char, index)}
                     >
                         {!cell && <Text size={20} weight={400}>{char}</Text>}
                     </div>

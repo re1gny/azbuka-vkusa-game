@@ -13,7 +13,7 @@ export function Board(props) {
             return
         }
 
-        onSelectedChange(current)
+        onSelectedChange?.(current)
     }
 
     return (

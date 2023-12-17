@@ -13,6 +13,8 @@ import {
     MAX_CAREER_WORDS,
     REQUIRED_BREAKFAST_WORDS,
     REQUIRED_CAREER_WORDS,
+    BOARD_ROWS,
+    BOARD_COLUMNS,
 } from "../../../constants/game";
 import {CompleteBoardButton} from "../../CompleteBoardButton";
 import {CompleteWordButton} from "../../CompleteWordButton";
@@ -80,7 +82,14 @@ export function GameScreen() {
         clearChar,
         completeBoard,
         completeWord,
-    } = useGame(BOARDS_INITIAL_STATE, WORDS_WITH_INFO, win, next)
+    } = useGame({
+        initialBoardsState: BOARDS_INITIAL_STATE,
+        wordsWithInfo: WORDS_WITH_INFO,
+        boardRows: BOARD_ROWS,
+        boardColumns: BOARD_COLUMNS,
+        onWin: win,
+        onComplete: next,
+    })
     const [trainingShown, setTrainingShown] = useState(false)
 
     return (

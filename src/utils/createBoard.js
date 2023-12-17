@@ -1,7 +1,7 @@
 import {BOARD_COLUMNS, BOARD_ROWS} from "../constants/game";
 
-export function createBoard(initialState) {
-    const chars = Array(BOARD_ROWS).fill(null).map(() => Array(BOARD_COLUMNS).fill(null))
+export function createBoard(initialState, rows = BOARD_ROWS, columns = BOARD_COLUMNS) {
+    const chars = Array(rows).fill(null).map(() => Array(columns).fill(null))
     const confirmed = {}
     const selected = null
 

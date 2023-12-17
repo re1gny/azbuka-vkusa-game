@@ -1,0 +1,301 @@
+$animation-duration: 400ms;
+$animation-name: switch;
+
+:export {
+  animationDuration: $animation-duration;
+  animationName: $animation-name;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: calc(20px * var(--size-ratio)) calc(32px * var(--size-ratio));
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #181717A6;
+  z-index: 2;
+}
+
+.progresses {
+  display: flex;
+  align-items: center;
+  margin-top: calc(67px * var(--size-ratio));
+}
+
+.progress {
+  width: calc(132px * var(--size-ratio));
+
+  & + & {
+    margin-left: calc(16px * var(--size-ratio));
+  }
+}
+
+.board {
+  position: relative;
+  margin-top: calc(33px * var(--size-ratio));
+  z-index: 3;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(-8.4px * var(--size-ratio));
+    left: calc(-15.4px * var(--size-ratio));
+    width: calc(100% + 2 * 15.4px * var(--size-ratio));
+    height: calc(100% + 2 * 8.4px * var(--size-ratio));
+    border-radius: calc(12px * var(--size-ratio));
+    background-color: #FAEFCD;
+    z-index: -1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: calc(-8.4px * var(--size-ratio));
+    left: calc(-15.4px * var(--size-ratio));
+    width: calc(100% + 2 * 15.4px * var(--size-ratio));
+    height: calc(100% + 2 * 8.4px * var(--size-ratio));
+    border-radius: calc(12px * var(--size-ratio));
+    background-color: rgba(24, 23, 23, 0.6509803922);
+  }
+
+  &.visible {
+    &::after {
+      opacity: 0;
+    }
+  }
+}
+
+.chars {
+  position: relative;
+  margin-top: calc(19px * var(--size-ratio));
+  z-index: 3;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(-8px * var(--size-ratio));
+    left: calc(-8px * var(--size-ratio));
+    width: calc(100% + 2 * 8px * var(--size-ratio));
+    height: calc(100% + 2 * 8px * var(--size-ratio));
+    border-radius: calc(12px * var(--size-ratio));
+    background-color: #FAEFCD;
+    z-index: -1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: calc(-8px * var(--size-ratio));
+    left: calc(-8px * var(--size-ratio));
+    width: calc(100% + 2 * 8px * var(--size-ratio));
+    height: calc(100% + 2 * 8px * var(--size-ratio));
+    border-radius: calc(12px * var(--size-ratio));
+    background: rgba(24, 23, 23, 0.6509803922);
+  }
+
+  &.visible {
+    &::after {
+      opacity: 0;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  margin-top: calc(19px * var(--size-ratio));
+}
+
+.actionGroup {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+
+  & + & {
+    margin-left: calc(11.5px * var(--size-ratio));
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(-7px * var(--size-ratio));
+    left: calc(-8.5px * var(--size-ratio));
+    width: calc(100% + 2 * 8.5px * var(--size-ratio));
+    height: calc(100% + 2 * 7px * var(--size-ratio));
+    border-radius: calc(12px * var(--size-ratio));
+    background-color: #FAEFCD;
+    z-index: -1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: calc(-7px * var(--size-ratio));
+    left: calc(-8.5px * var(--size-ratio));
+    width: calc(100% + 2 * 8.5px * var(--size-ratio));
+    height: calc(100% + 2 * 7px * var(--size-ratio));
+    border-radius: calc(12px * var(--size-ratio));
+    background: rgba(24, 23, 23, 0.6509803922);
+  }
+
+  &.visible {
+    z-index: 4;
+
+    &::after {
+      opacity: 0;
+    }
+  }
+}
+
+.action {
+  & + & {
+    margin-left: calc(11.5px * var(--size-ratio));
+  }
+}
+
+.step1Panel1 {
+  position: absolute;
+  top: calc(66px * var(--size-ratio));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(312px * var(--size-ratio));
+  z-index: 3;
+}
+
+.step1Panel2 {
+  position: absolute;
+  top: calc(470px * var(--size-ratio));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(312px * var(--size-ratio));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.step1Panel2NextButton {
+  margin-top: calc(18px * var(--size-ratio));
+}
+
+.nextButtonIcon {
+  width: calc(46px * var(--size-ratio));
+  height: calc(16px * var(--size-ratio));
+}
+
+.step2Panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(312px * var(--size-ratio));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.step2PanelNextButton {
+  margin-top: calc(21px * var(--size-ratio));
+}
+
+.step3Panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(312px * var(--size-ratio));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.step3PanelNextButton {
+  margin-top: calc(21px * var(--size-ratio));
+}
+
+.step4Panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(312px * var(--size-ratio));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.step4PanelNextButton {
+  margin-top: calc(21px * var(--size-ratio));
+}
+
+:global(.#{$animation-name}-enter) {
+  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
+    opacity: 0;
+  }
+
+  .board, .chars, .actionGroup {
+    &.visible {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+:global(.#{$animation-name}-enter-active) {
+  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
+    opacity: 1;
+    transition: opacity $animation-duration;
+  }
+
+  .board, .chars, .actionGroup {
+    &.visible {
+      &::after {
+        opacity: 0;
+        transition: opacity $animation-duration;
+      }
+    }
+  }
+}
+
+:global(.#{$animation-name}-exit) {
+  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
+    opacity: 1;
+  }
+
+  .board, .chars, .actionGroup {
+    &.visible {
+      &::after {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+:global(.#{$animation-name}-exit-active) {
+  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
+    opacity: 0;
+    transition: opacity $animation-duration;
+  }
+
+  .board, .chars, .actionGroup {
+    &.visible {
+      &::after {
+        opacity: 1;
+        transition: opacity $animation-duration;
+      }
+    }
+  }
+}

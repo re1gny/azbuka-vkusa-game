@@ -1,6 +1,8 @@
 import {useCallback, useMemo, useRef, useState} from "react";
 import {produce} from "immer";
 import {
+    BOARD_COLUMNS,
+    BOARD_ROWS,
     BREAKFAST_WORDS,
     CAREER_WORDS,
     MAX_BOARDS,
@@ -16,7 +18,8 @@ import {isSameBoardCell} from "../utils/isSameBoardCell";
 import {parseBoard} from "../utils/parseBoard";
 import {shuffleArray} from "../utils/shuffleArray";
 
-export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
+export function useGame(params) {
+    const {initialBoardsState = [], wordsWithInfo = [], boardRows = BOARD_ROWS, boardColumns = BOARD_COLUMNS, onWin, onComplete} = params || {}
     const [unknownWordErrorShown, setUnknownWordErrorShown] = useState(false)
     const [unknownWordErrorParam, setUnknownWordErrorParam] = useState(null)
     const [repeatedWordErrorShown, setRepeatedWordErrorShown] = useState(false)
@@ -29,7 +32,7 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
     const [successTextShown, setSuccessTextShown] = useState(false)
     const [successText, setSuccessText] = useState(null)
     const successTextTimerRef = useRef()
-    const [boards, setBoards] = useState([createBoard(initialBoardsState?.[0])])
+    const [boards, setBoards] = useState([createBoard(initialBoardsState?.[0], boardRows, boardColumns)])
     const [careerWords, setCareerWords] = useState(() => {
         const {entries} = parseBoard(getLast(boards))
         const words = entries.map(({word}) => word)
@@ -75,9 +78,9 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
 
         setBoards(produce(boards, (draft) => {
             getLast(draft).selected = null
-            draft.push(createBoard(initialBoardsState?.[draft.length]))
+            draft.push(createBoard(initialBoardsState?.[draft.length], boardRows, boardColumns))
         }))
-    }, [boards, initialBoardsState, onComplete])
+    }, [boards, initialBoardsState, boardRows, boardColumns, onComplete])
 
     const showUnknownWordError = useCallback((word) => {
         setUnknownWordErrorShown(true)

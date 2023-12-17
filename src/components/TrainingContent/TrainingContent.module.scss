@@ -1,0 +1,82 @@
+$steps-animation-duration: 400ms;
+$steps-animation-name: steps-switch;
+$skip-button-animation-duration: $steps-animation-duration;
+$skip-button-animation-name: skip-button;
+
+:export {
+  stepsAnimationDuration: $steps-animation-duration;
+  stepsAnimationName: $steps-animation-name;
+  skipButtonAnimationDuration: $skip-button-animation-duration;
+  skipButtonAnimationName: $skip-button-animation-name;
+}
+
+.wrapper {
+  position: relative;
+  height: 100%;
+}
+
+.skipButton {
+  position: absolute;
+  top: calc(20px * var(--size-ratio));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.steps {
+  position: relative;
+  height: 100%;
+}
+
+:global(.#{$skip-button-animation-name}-enter) {
+  &.skipButton {
+    opacity: 0;
+  }
+}
+
+:global(.#{$skip-button-animation-name}-enter-active) {
+  &.skipButton {
+    opacity: 1;
+    transition: opacity $skip-button-animation-duration;
+  }
+}
+
+:global(.#{$skip-button-animation-name}-exit) {
+  &.skipButton {
+    opacity: 1;
+  }
+}
+
+:global(.#{$skip-button-animation-name}-exit-active) {
+  &.skipButton {
+    opacity: 0;
+    transition: opacity $skip-button-animation-duration;
+  }
+}
+
+
+:global(.#{$steps-animation-name}-enter) {
+  &.steps {
+    opacity: 0;
+  }
+}
+
+:global(.#{$steps-animation-name}-enter-active) {
+  &.steps {
+    opacity: 1;
+    transition: opacity $steps-animation-duration;
+  }
+}
+
+:global(.#{$steps-animation-name}-exit) {
+  &.steps {
+    opacity: 1;
+  }
+}
+
+:global(.#{$steps-animation-name}-exit-active) {
+  &.steps {
+    opacity: 0;
+    transition: opacity $steps-animation-duration;
+  }
+}

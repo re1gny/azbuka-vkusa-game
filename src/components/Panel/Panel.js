@@ -3,7 +3,7 @@ import cn from 'classnames'
 import styles from './Panel.module.scss'
 
 export function Panel(props) {
-    const {className, children, withBorder = true, padding} = props
+    const {className, children, withBorder = false, padding = [12, 16], color = '#FFF2C4'} = props
 
     const formattedPadding = useMemo(() => {
         if (typeof padding === 'number') {
@@ -37,6 +37,7 @@ export function Panel(props) {
                 '--padding-right': `${formattedPadding?.[1]}px`,
                 '--padding-bottom': `${formattedPadding?.[2]}px`,
                 '--padding-left': `${formattedPadding?.[3]}px`,
+                '--background-color': color,
             }}
         >
             {children}
