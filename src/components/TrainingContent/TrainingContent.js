@@ -8,6 +8,7 @@ import {Step1234} from "./Step1234";
 import {Step5} from "./Step5";
 import {Step6} from "./Step6";
 import {Step7} from "./Step7";
+import {BREAKFAST_WORDS} from "../../constants/game";
 import styles from './TrainingContent.module.scss'
 
 const STEPS_ANIMATION_DURATION = parseInt(styles.stepsAnimationDuration)
@@ -66,7 +67,7 @@ const STEP_KEY_MAP = {
 export function TrainingContent(props) {
     const {className, onComplete} = props
     const [step, setStep] = useState(1)
-    const game1 = useGame({initialBoardsState: BOARDS_INITIAL_STATE_1})
+    const game1 = useGame({initialBoardsState: BOARDS_INITIAL_STATE_1, careerWords: [...BREAKFAST_WORDS, 'ката']})
     const game2 = useGame({initialBoardsState: BOARDS_INITIAL_STATE_2, boardRows: 8, boardColumns: 7})
     const game3 = useGame({initialBoardsState: BOARDS_INITIAL_STATE_3, boardRows: 8, boardColumns: 7})
 

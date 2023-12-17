@@ -64,6 +64,7 @@ $animation-name: switch;
     height: calc(100% + 2 * 8.4px * var(--size-ratio));
     border-radius: calc(12px * var(--size-ratio));
     background-color: rgba(24, 23, 23, 0.6509803922);
+    z-index: 3;
   }
 
   &.visible {
@@ -99,6 +100,7 @@ $animation-name: switch;
     height: calc(100% + 2 * 8px * var(--size-ratio));
     border-radius: calc(12px * var(--size-ratio));
     background: rgba(24, 23, 23, 0.6509803922);
+    z-index: 3;
   }
 
   &.visible {
@@ -145,6 +147,7 @@ $animation-name: switch;
     height: calc(100% + 2 * 7px * var(--size-ratio));
     border-radius: calc(12px * var(--size-ratio));
     background: rgba(24, 23, 23, 0.6509803922);
+    z-index: 3;
   }
 
   &.visible {

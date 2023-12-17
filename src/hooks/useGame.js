@@ -19,7 +19,16 @@ import {parseBoard} from "../utils/parseBoard";
 import {shuffleArray} from "../utils/shuffleArray";
 
 export function useGame(params) {
-    const {initialBoardsState = [], wordsWithInfo = [], boardRows = BOARD_ROWS, boardColumns = BOARD_COLUMNS, onWin, onComplete} = params || {}
+    const {
+        initialBoardsState = [],
+        wordsWithInfo = [],
+        boardRows = BOARD_ROWS,
+        boardColumns = BOARD_COLUMNS,
+        careerWords: allCareerWords = CAREER_WORDS,
+        breakfastWords: allBreakfastWords = BREAKFAST_WORDS,
+        onWin,
+        onComplete,
+    } = params || {}
     const [unknownWordErrorShown, setUnknownWordErrorShown] = useState(false)
     const [unknownWordErrorParam, setUnknownWordErrorParam] = useState(null)
     const [repeatedWordErrorShown, setRepeatedWordErrorShown] = useState(false)
@@ -36,15 +45,43 @@ export function useGame(params) {
     const [careerWords, setCareerWords] = useState(() => {
         const {entries} = parseBoard(getLast(boards))
         const words = entries.map(({word}) => word)
-        return words.filter(word => CAREER_WORDS.includes(word))
+        return words.filter(word => allCareerWords.includes(word))
     })
     const [breakfastWords, setBreakfastWords] = useState(() => {
         const {entries} = parseBoard(getLast(boards))
         const words = entries.map(({word}) => word)
-        return words.filter(word => BREAKFAST_WORDS.includes(word))
+        return words.filter(word => allBreakfastWords.includes(word))
     })
-    const [chars, setChars] = useState(createChars(shuffleArray(getChars(...CAREER_WORDS, ...BREAKFAST_WORDS))))
+    const [chars, setChars] = useState(createChars(shuffleArray(getChars(...allCareerWords, ...allBreakfastWords))))
     const board = useMemo(() => getLast(boards), [boards])
+
+    const reset = useCallback((position) => {
+        const boards = [createBoard(initialBoardsState?.[0], boardRows, boardColumns)]
+
+        setUnknownWordErrorShown(false)
+        setUnknownWordErrorParam(null)
+        setRepeatedWordErrorShown(false)
+        setRepeatedWordErrorParam(null)
+        setMultipleWordsErrorShow(false)
+        setMultipleWordsErrorParam(null)
+        setWordInfoShown(false)
+        setWordInfoParam(null)
+        setWinConfirmShown(false)
+        setSuccessTextShown(false)
+        setSuccessText(null)
+        setBoards(boards)
+        setCareerWords(() => {
+            const {entries} = parseBoard(getLast(boards))
+            const words = entries.map(({word}) => word)
+            return words.filter(word => allCareerWords.includes(word))
+        })
+        setBreakfastWords(() => {
+            const {entries} = parseBoard(getLast(boards))
+            const words = entries.map(({word}) => word)
+            return words.filter(word => allBreakfastWords.includes(word))
+        })
+        setChars(createChars(shuffleArray(getChars(...allCareerWords, ...allBreakfastWords))))
+    }, [allCareerWords])
 
     const selectCell = useCallback((position) => {
         setBoards(produce(boards, (draft) => {
@@ -167,14 +204,14 @@ export function useGame(params) {
         const newCareerWords = [...careerWords, word]
         const newBreakfastWords = [...breakfastWords, word]
 
-        if (CAREER_WORDS.includes(word)) {
+        if (allCareerWords.includes(word)) {
             if (careerWords.includes(word)) {
                 showRepeatedWordError(word)
                 return
             } else {
                 setCareerWords(newCareerWords)
             }
-        } else if (BREAKFAST_WORDS.includes(word)) {
+        } else if (allBreakfastWords.includes(word)) {
             if (breakfastWords.includes(word)) {
                 showRepeatedWordError(word)
                 return
@@ -221,6 +258,8 @@ export function useGame(params) {
         showWordInfo,
         showWinConfirm,
         refreshChars,
+        allCareerWords,
+        allBreakfastWords,
     ])
 
     const clearChar = useCallback(() => {
@@ -291,6 +330,7 @@ export function useGame(params) {
         completeWord,
         refreshChars,
         clearChar,
+        reset,
         ...processedParams,
     }
 }

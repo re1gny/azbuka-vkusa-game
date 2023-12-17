@@ -29,4 +29,29 @@
   background-color: #DAFFC2;
   transition: background-color 200ms;
   z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: -1;
+    background-color: #DAFFC2;
+    animation: scale 300ms both;
+  }
+}
+
+@keyframes scale {
+  0% {
+    background-color: #6DB63D;
+    width: calc(12px * var(--size-ratio));
+    height: calc(12px * var(--size-ratio));
+  }
+  100% {
+    background-color: #DAFFC2;
+    width: calc(30px * var(--size-ratio));
+    height: calc(30px * var(--size-ratio));
+  }
 }

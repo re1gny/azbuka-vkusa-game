@@ -1,3 +1,4 @@
+import {useEffect, useRef} from "react";
 import cn from "classnames";
 import {CSSTransition, SwitchTransition} from "react-transition-group";
 import ArrowRightShort from "../../../assets/images/arrowRightShort.svg";
@@ -17,6 +18,8 @@ import {BoardChars} from "../../BoardChars";
 import {CompleteBoardButton} from "../../CompleteBoardButton";
 import {CompleteWordButton} from "../../CompleteWordButton";
 import {ClearCharButton} from "../../ClearCharButton";
+import {wait} from "../../../utils/wait";
+import {useCallbackRef} from "../../../hooks/useCallbackRef";
 import styles from './Step1234.module.scss'
 
 const ANIMATION_DURATION = parseInt(styles.animationDuration)
@@ -24,7 +27,56 @@ const ANIMATION_NAME = styles.animationName
 
 export function Step1234(props) {
     const {className, step, onNextStep, ...game} = props
-    const {board, chars, careerWords, breakfastWords} = game
+    const {board, chars, careerWords, breakfastWords, selectCell, selectChar, completeWord, reset} = game
+    const isLoopingRef = useRef(false)
+
+    const selectCellRef = useCallbackRef(selectCell)
+    const selectCharRef = useCallbackRef(selectChar)
+    const completeWordRef = useCallbackRef(completeWord)
+    const resetRef = useCallbackRef(reset)
+
+    function assertIsLooping() {
+        if (!isLoopingRef.current) {
+            throw new Error()
+        }
+    }
+
+    async function processLoop() {
+        try {
+            assertIsLooping()
+            selectCellRef([4, 5])
+            await wait(800)
+            assertIsLooping()
+            selectCharRef('а', 100)
+            await wait(800)
+            assertIsLooping()
+            selectCellRef([6, 5])
+            await wait(800)
+            assertIsLooping()
+            selectCharRef('а', 100)
+            await wait(800)
+            assertIsLooping()
+            completeWordRef()
+            await wait(800)
+            assertIsLooping()
+            resetRef()
+            assertIsLooping()
+            await wait(800)
+            assertIsLooping()
+            await processLoop()
+        } catch {}
+    }
+
+    useEffect(() => {
+        if (step === 1) {
+            isLoopingRef.current = true
+            processLoop()
+
+            return () => {
+                isLoopingRef.current = false
+            }
+        }
+    }, [step])
 
     return (
         <SwitchTransition mode='out-in'>
