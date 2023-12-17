@@ -29,16 +29,21 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
     const [successTextShown, setSuccessTextShown] = useState(false)
     const [successText, setSuccessText] = useState(null)
     const successTextTimerRef = useRef()
-    const [careerWords, setCareerWords] = useState([])
-    const [breakfastWords, setBreakfastWords] = useState([])
     const [boards, setBoards] = useState([createBoard(initialBoardsState?.[0])])
-    const [chars, setChars] = useState(() => {
+    const [careerWords, setCareerWords] = useState(() => {
         const {entries} = parseBoard(getLast(boards))
         const words = entries.map(({word}) => word)
-
+        return words.filter(word => CAREER_WORDS.includes(word))
+    })
+    const [breakfastWords, setBreakfastWords] = useState(() => {
+        const {entries} = parseBoard(getLast(boards))
+        const words = entries.map(({word}) => word)
+        return words.filter(word => BREAKFAST_WORDS.includes(word))
+    })
+    const [chars, setChars] = useState(() => {
         return createChars(shuffleArray(getChars(
-            ...CAREER_WORDS.filter(word => !words.includes(word)),
-            ...BREAKFAST_WORDS.filter(word => !words.includes(word)),
+            ...CAREER_WORDS.filter(word => !careerWords.includes(word)),
+            ...BREAKFAST_WORDS.filter(word => !breakfastWords.includes(word)),
         )))
     })
     const board = useMemo(() => getLast(boards), [boards])
@@ -144,6 +149,10 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
         }
     }, [successText])
 
+    const refreshChars = useCallback(() => {
+        setChars(shuffleArray(chars).map(({char}) => ({char, cell: null})))
+    }, [chars])
+
     const completeWord = useCallback(() => {
         const {newEntries} = parseBoard(getLast(boards))
 
@@ -189,6 +198,7 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
                 board.confirmed[y][x] = true
             })
         }))
+        refreshChars()
 
         if (wordsWithInfo.includes(word)) {
             showWordInfo(word)
@@ -212,11 +222,8 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
         showRepeatedWordError,
         showWordInfo,
         showWinConfirm,
+        refreshChars,
     ])
-
-    const refreshChars = useCallback(() => {
-        setChars(shuffleArray(chars).sort((a, b) => +!!a.cell - +!!b.cell))
-    }, [chars])
 
     const clearChar = useCallback(() => {
         const board = getLast(boards)
