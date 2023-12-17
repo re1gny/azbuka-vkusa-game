@@ -1,9 +1,13 @@
 $success-text-animation-duration: 400ms;
 $success-text-animation-name: success-text;
+$training-animation-duration: 400ms;
+$training-animation-name: success-text;
 
 :export {
   successTextAnimationDuration: $success-text-animation-duration;
   successTextAnimationName: $success-text-animation-name;
+  trainingAnimationDuration: $training-animation-duration;
+  trainingAnimationName: $training-animation-name;
 }
 
 .wrapper {
@@ -103,5 +107,31 @@ $success-text-animation-name: success-text;
     opacity: 0;
     transform: translate(-50%, -20%);
     transition: opacity $success-text-animation-duration, transform $success-text-animation-duration;
+  }
+}
+
+:global(.#{$training-animation-name}-enter) {
+  &.training, &.wrapper {
+    opacity: 0;
+  }
+}
+
+:global(.#{$training-animation-name}-enter-active) {
+  &.training, &.wrapper {
+    opacity: 1;
+    transition: opacity $training-animation-duration;
+  }
+}
+
+:global(.#{$training-animation-name}-exit) {
+  &.training, &.wrapper {
+    opacity: 1;
+  }
+}
+
+:global(.#{$training-animation-name}-exit-active) {
+  &.training, &.wrapper {
+    opacity: 0;
+    transition: opacity $training-animation-duration;
   }
 }
