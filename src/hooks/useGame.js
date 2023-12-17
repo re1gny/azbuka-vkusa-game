@@ -107,18 +107,6 @@ export function useGame(params) {
         }))
     }, [boards, chars])
 
-    const completeBoard = useCallback(() => {
-        if (boards.length >= MAX_BOARDS) {
-            onComplete?.()
-            return
-        }
-
-        setBoards(produce(boards, (draft) => {
-            getLast(draft).selected = null
-            draft.push(createBoard(initialBoardsState?.[draft.length], boardRows, boardColumns))
-        }))
-    }, [boards, initialBoardsState, boardRows, boardColumns, onComplete])
-
     const showUnknownWordError = useCallback((word) => {
         setUnknownWordErrorShown(true)
         setUnknownWordErrorParam(word)
@@ -187,6 +175,19 @@ export function useGame(params) {
     const refreshChars = useCallback(() => {
         setChars(shuffleArray(chars).map(({char}) => ({char, cell: null})))
     }, [chars])
+
+    const completeBoard = useCallback(() => {
+        if (boards.length >= MAX_BOARDS) {
+            onComplete?.()
+            return
+        }
+
+        setBoards(produce(boards, (draft) => {
+            getLast(draft).selected = null
+            draft.push(createBoard(initialBoardsState?.[draft.length], boardRows, boardColumns))
+        }))
+        refreshChars()
+    }, [boards, initialBoardsState, boardRows, boardColumns, onComplete, refreshChars])
 
     const completeWord = useCallback(() => {
         const {newEntries} = parseBoard(getLast(boards))
