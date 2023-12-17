@@ -32,7 +32,15 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
     const [careerWords, setCareerWords] = useState([])
     const [breakfastWords, setBreakfastWords] = useState([])
     const [boards, setBoards] = useState([createBoard(initialBoardsState?.[0])])
-    const [chars, setChars] = useState(createChars(getChars(...CAREER_WORDS, ...BREAKFAST_WORDS)))
+    const [chars, setChars] = useState(() => {
+        const {entries} = parseBoard(getLast(boards))
+        const words = entries.map(({word}) => word)
+
+        return createChars(shuffleArray(getChars(
+            ...CAREER_WORDS.filter(word => !words.includes(word)),
+            ...BREAKFAST_WORDS.filter(word => !words.includes(word)),
+        )))
+    })
     const board = useMemo(() => getLast(boards), [boards])
 
     const selectCell = useCallback((position) => {
@@ -55,8 +63,7 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
             board.chars[y][x] = char
         }))
         setChars(produce(chars, (draft) => {
-            draft.current[index].cell = getLast(boards).selected
-            draft.available = draft.available.filter(item => item !== char)
+            draft[index].cell = getLast(boards).selected
         }))
     }, [boards, chars])
 
@@ -198,6 +205,7 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
         careerWords,
         breakfastWords,
         boards,
+        chars,
         showSuccessText,
         showMultipleWordsError,
         showUnknownWordError,
@@ -207,7 +215,7 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
     ])
 
     const refreshChars = useCallback(() => {
-        setChars(createChars(chars.available))
+        setChars(shuffleArray(chars).sort((a, b) => +!!a.cell - +!!b.cell))
     }, [chars])
 
     const clearChar = useCallback(() => {
@@ -218,12 +226,9 @@ export function useGame(initialBoardsState, wordsWithInfo, onWin, onComplete) {
         }
 
         setChars(produce(chars, (draft) => {
-            const board = getLast(boards)
-            const [x, y] = board.selected
-            draft.available.push(board.chars[y][x])
-            const currentKey = Object.keys(draft.current).find(key => isSameBoardCell(draft.current[key].cell, board.selected))
-            if (currentKey) {
-                draft.current[currentKey].cell = null
+            const char = draft.find(({cell}) => isSameBoardCell(cell, getLast(boards).selected))
+            if (char) {
+                char.cell = null
             }
         }))
         setBoards(produce(boards, (draft) => {

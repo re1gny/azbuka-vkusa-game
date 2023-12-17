@@ -1,13 +1,10 @@
 import cn from 'classnames'
 import RefreshIcon from "../../assets/images/refresh.svg";
-import {isBoardCellSelected} from "../../utils/isBoardCellSelected";
-import {isBoardCellAvailable} from "../../utils/isBoardCellAvailable";
-import {isBoardCellConfirmed} from "../../utils/isBoardCellConfirmed";
 import {MAX_CHARS} from "../../constants/game";
-import styles from './BoardChars.module.scss'
 import {Text} from "../Text";
 import {Button} from "../Button";
 import {Image} from "../Image";
+import styles from './BoardChars.module.scss'
 
 export function BoardChars(props) {
     const {className, chars, onSelect, onRefresh} = props
@@ -18,13 +15,13 @@ export function BoardChars(props) {
                 <Image className={styles.refreshButtonIcon} src={RefreshIcon} />
             </Button>
             <div className={styles.boardChars}>
-                {Object.keys(chars.current).map((key) => (
+                {chars.slice(0, MAX_CHARS).map(({char, cell}, index) => (
                     <div
-                        key={key}
-                        className={cn(styles.boardChar, !!chars.current[key].cell && styles.empty)}
-                        onClick={() => onSelect(chars.current[key].char, key)}
+                        key={index}
+                        className={cn(styles.boardChar, !!cell && styles.empty)}
+                        onClick={() => onSelect(char, index)}
                     >
-                        {!chars.current[key].cell && <Text size={20} weight={400}>{chars.current[key].char}</Text>}
+                        {!cell && <Text size={20} weight={400}>{char}</Text>}
                     </div>
                 ))}
             </div>
