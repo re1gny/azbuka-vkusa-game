@@ -10,42 +10,44 @@ export function parseBoard(board) {
                 return
             }
 
-            const hasPrevVerticalChar = board.chars[y - 1]?.[x]
-            const hasPrevHorizontalChar = board.chars[y]?.[x - 1]
+            const prevVerticalChar = board.chars[y - 1]?.[x]
+            const prevHorizontalChar = board.chars[y]?.[x - 1]
 
-            if (hasPrevVerticalChar) {
-                const meta = entries.find(({positions}) => {
-                    const first = getFirst(positions)
-                    const last = getLast(positions)
-                    return first[0] === x && last[0] === x && last[1] === y - 1
-                })
+            if (prevVerticalChar) {
+                const prevEntry = entries.find(({positions}) => getFirst(positions)[0] === x
+                    && getLast(positions)[0] === x
+                    && getLast(positions)[1] === y - 1
+                )
 
-                if (meta) {
-                    meta.word += char
-                    meta.positions.push([x, y])
+                if (prevEntry) {
+                    prevEntry.word += char
+                    prevEntry.positions.push([x, y])
+                } else {
+                    entries.push({word: prevVerticalChar + char, positions: [[x, y - 1], [x, y]]})
                 }
             }
 
-            if (hasPrevHorizontalChar) {
-                const meta = entries.find(({positions}) => {
-                    const first = getFirst(positions)
-                    const last = getLast(positions)
-                    return first[1] === y && last[0] === x - 1 && last[1] === y
-                })
+            if (prevHorizontalChar) {
+                const prevEntry = entries.find(({positions}) => getFirst(positions)[1] === y
+                    && getLast(positions)[0] === x - 1
+                    && getLast(positions)[1] === y
+                )
 
-                if (meta) {
-                    meta.word += char
-                    meta.positions.push([x, y])
+                if (prevEntry) {
+                    prevEntry.word += char
+                    prevEntry.positions.push([x, y])
+                } else {
+                    entries.push({word: prevHorizontalChar + char, positions: [[x - 1, y], [x, y]]})
                 }
             }
 
-            if (!hasPrevVerticalChar && !hasPrevHorizontalChar) {
+            if (!prevVerticalChar && !prevHorizontalChar) {
                 entries.push({word: char, positions: [[x, y]]})
             }
         })
     })
 
     const newEntries = entries.filter(({positions}) => positions.some(([x, y]) => !board.confirmed[y]?.[x]))
-    console.log(entries, newEntries);
+
     return {entries, newEntries}
 }
