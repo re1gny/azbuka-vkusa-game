@@ -43,6 +43,7 @@ export function Step1234(props) {
 
     async function processLoop() {
         try {
+            await wait(400)
             assertIsLooping()
             selectCellRef([4, 5])
             await wait(800)
@@ -57,10 +58,9 @@ export function Step1234(props) {
             await wait(800)
             assertIsLooping()
             completeWordRef()
-            await wait(800)
+            await wait(1200)
             assertIsLooping()
             resetRef()
-            assertIsLooping()
             await wait(800)
             assertIsLooping()
             await processLoop()
