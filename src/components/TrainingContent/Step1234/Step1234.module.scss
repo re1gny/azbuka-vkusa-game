@@ -22,6 +22,7 @@ $animation-name: switch;
   height: 100%;
   background: #181717A6;
   z-index: 2;
+  transition: clip-path $animation-duration;
 }
 
 .progresses {
@@ -41,73 +42,11 @@ $animation-name: switch;
 .board {
   position: relative;
   margin-top: calc(33px * var(--size-ratio));
-  z-index: 3;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: calc(-8.4px * var(--size-ratio));
-    left: calc(-15.4px * var(--size-ratio));
-    width: calc(100% + 2 * 15.4px * var(--size-ratio));
-    height: calc(100% + 2 * 8.4px * var(--size-ratio));
-    border-radius: calc(12px * var(--size-ratio));
-    background-color: #FAEFCD;
-    z-index: -1;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: calc(-8.4px * var(--size-ratio));
-    left: calc(-15.4px * var(--size-ratio));
-    width: calc(100% + 2 * 15.4px * var(--size-ratio));
-    height: calc(100% + 2 * 8.4px * var(--size-ratio));
-    border-radius: calc(12px * var(--size-ratio));
-    background-color: rgba(24, 23, 23, 0.6509803922);
-    z-index: 3;
-  }
-
-  &.visible {
-    &::after {
-      opacity: 0;
-    }
-  }
 }
 
 .chars {
   position: relative;
   margin-top: calc(19px * var(--size-ratio));
-  z-index: 3;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: calc(-8px * var(--size-ratio));
-    left: calc(-8px * var(--size-ratio));
-    width: calc(100% + 2 * 8px * var(--size-ratio));
-    height: calc(100% + 2 * 8px * var(--size-ratio));
-    border-radius: calc(12px * var(--size-ratio));
-    background-color: #FAEFCD;
-    z-index: -1;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: calc(-8px * var(--size-ratio));
-    left: calc(-8px * var(--size-ratio));
-    width: calc(100% + 2 * 8px * var(--size-ratio));
-    height: calc(100% + 2 * 8px * var(--size-ratio));
-    border-radius: calc(12px * var(--size-ratio));
-    background: rgba(24, 23, 23, 0.6509803922);
-    z-index: 3;
-  }
-
-  &.visible {
-    &::after {
-      opacity: 0;
-    }
-  }
 }
 
 .actions {
@@ -120,42 +59,9 @@ $animation-name: switch;
   display: flex;
   align-items: center;
   position: relative;
-  z-index: 3;
 
   & + & {
     margin-left: calc(11.5px * var(--size-ratio));
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: calc(-7px * var(--size-ratio));
-    left: calc(-8.5px * var(--size-ratio));
-    width: calc(100% + 2 * 8.5px * var(--size-ratio));
-    height: calc(100% + 2 * 7px * var(--size-ratio));
-    border-radius: calc(12px * var(--size-ratio));
-    background-color: #FAEFCD;
-    z-index: -1;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: calc(-7px * var(--size-ratio));
-    left: calc(-8.5px * var(--size-ratio));
-    width: calc(100% + 2 * 8.5px * var(--size-ratio));
-    height: calc(100% + 2 * 7px * var(--size-ratio));
-    border-radius: calc(12px * var(--size-ratio));
-    background: rgba(24, 23, 23, 0.6509803922);
-    z-index: 3;
-  }
-
-  &.visible {
-    z-index: 4;
-
-    &::after {
-      opacity: 0;
-    }
   }
 }
 
@@ -163,6 +69,14 @@ $animation-name: switch;
   & + & {
     margin-left: calc(11.5px * var(--size-ratio));
   }
+}
+
+.panels {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .step1Panel1 {
@@ -247,14 +161,6 @@ $animation-name: switch;
   .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
     opacity: 0;
   }
-
-  .board, .chars, .actionGroup {
-    &.visible {
-      &::after {
-        opacity: 1;
-      }
-    }
-  }
 }
 
 :global(.#{$animation-name}-enter-active) {
@@ -262,28 +168,11 @@ $animation-name: switch;
     opacity: 1;
     transition: opacity $animation-duration;
   }
-
-  .board, .chars, .actionGroup {
-    &.visible {
-      &::after {
-        opacity: 0;
-        transition: opacity $animation-duration;
-      }
-    }
-  }
 }
 
 :global(.#{$animation-name}-exit) {
   .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
     opacity: 1;
-  }
-
-  .board, .chars, .actionGroup {
-    &.visible {
-      &::after {
-        opacity: 0;
-      }
-    }
   }
 }
 
@@ -291,14 +180,5 @@ $animation-name: switch;
   .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
     opacity: 0;
     transition: opacity $animation-duration;
-  }
-
-  .board, .chars, .actionGroup {
-    &.visible {
-      &::after {
-        opacity: 1;
-        transition: opacity $animation-duration;
-      }
-    }
   }
 }
