@@ -1,3 +1,4 @@
+import {forwardRef} from "react";
 import cn from 'classnames'
 import {BoardCell} from "../BoardCell";
 import {isBoardCellSelected} from "../../utils/isBoardCellSelected";
@@ -5,7 +6,7 @@ import {isBoardCellAvailable} from "../../utils/isBoardCellAvailable";
 import {isBoardCellConfirmed} from "../../utils/isBoardCellConfirmed";
 import styles from './Board.module.scss'
 
-export function Board(props) {
+function BoardComponent(props, ref) {
     const {className, board, onSelectedChange} = props
 
     function handleCellClick(current, board) {
@@ -17,7 +18,7 @@ export function Board(props) {
     }
 
     return (
-        <div className={cn(styles.board, className)}>
+        <div ref={ref} className={cn(styles.board, className)}>
             {board.chars.map((row, y) => (
                 <div key={y} className={styles.row}>
                     {row.map((char, x) => (
@@ -36,3 +37,5 @@ export function Board(props) {
         </div>
     )
 }
+
+export const Board = forwardRef(BoardComponent)

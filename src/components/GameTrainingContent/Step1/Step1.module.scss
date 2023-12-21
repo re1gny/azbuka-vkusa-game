@@ -1,0 +1,82 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: calc(90px * var(--size-ratio)) calc(20px * var(--size-ratio)) calc(20px * var(--size-ratio));
+}
+
+.panels {
+  margin-top: calc(8px * var(--size-ratio));
+}
+
+.panel1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cells {
+  display: flex;
+  align-items: center;
+}
+
+.cell1 {
+  margin-right: calc(-1px * var(--size-ratio));
+  transform: scale(0.74);
+  transform-origin: top;
+}
+
+.cell2 {
+  margin-left: calc(-1px * var(--size-ratio));
+  transform: scale(0.74);
+  transform-origin: top;
+}
+
+.panel1Text1 {
+  margin-top: calc(-3px * var(--size-ratio));
+}
+
+.panel1Text2 {
+  margin-top: calc(-18px * var(--size-ratio));
+}
+
+.chars {
+  margin-top: calc(6px * var(--size-ratio));
+  transform: scale(0.77);
+  transform-origin: top;
+}
+
+.panel2 {
+  display: flex;
+  flex-direction: column;
+  margin-top: calc(8px * var(--size-ratio));
+}
+
+.item {
+  display: flex;
+  align-items: center;
+
+  & + & {
+    margin-top: calc(12px * var(--size-ratio));
+  }
+}
+
+.itemButtonWrapper {
+  flex-shrink: 0;
+  width: calc(90px * var(--size-ratio));
+}
+
+.itemButton {
+  transform: scale(0.68);
+  transform-origin: left;
+}
+
+.nextButton {
+  margin-top: calc(16px * var(--size-ratio));
+}
+
+.nextButtonIcon {
+  width: calc(46px * var(--size-ratio));
+  height: calc(16px * var(--size-ratio));
+}

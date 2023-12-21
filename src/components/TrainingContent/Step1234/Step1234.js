@@ -22,13 +22,14 @@ import {wait} from "../../../utils/wait";
 import {useCallbackRef} from "../../../hooks/useCallbackRef";
 import {ClipPath} from "../../ClipPath";
 import styles from './Step1234.module.scss'
+import {GameContent} from "../../GameContent";
 
 const ANIMATION_DURATION = parseInt(styles.animationDuration)
 const ANIMATION_NAME = styles.animationName
 
 export function Step1234(props) {
     const {className, step, onNextStep, ...game} = props
-    const {board, chars, careerWords, breakfastWords, selectCell, selectChar, completeWord, reset} = game
+    const {selectCell, selectChar, completeWord, reset} = game
     const isLoopingRef = useRef(false)
     const boardRef = useRef()
     const charsRef = useRef()
@@ -48,10 +49,10 @@ export function Step1234(props) {
             return [charsRef, [8, 8]]
         }
         if (step === 3) {
-            return [actionsGroup1Ref, [7, 8.5]]
+            return [actionsGroup2Ref, [7, 8.5]]
         }
         if (step === 4) {
-            return [actionsGroup2Ref, [7, 8.5]]
+            return [actionsGroup1Ref, [7, 8.5]]
         }
         return [undefined, undefined]
     }, [step])
@@ -104,37 +105,13 @@ export function Step1234(props) {
             <ClipPath target={target} offset={offset} borderRadius={12}>
                 {({ref, clipPath}) => <div ref={ref} style={{clipPath}} className={styles.backdrop}/>}
             </ClipPath>
-            <div className={styles.progresses}>
-                <BoardProgress
-                    className={styles.progress}
-                    name="карьера"
-                    max={MAX_CAREER_WORDS}
-                    required={REQUIRED_CAREER_WORDS}
-                    current={careerWords.length}
-                />
-                <BoardProgress
-                    className={styles.progress}
-                    name="завтрак"
-                    max={MAX_BREAKFAST_WORDS}
-                    required={REQUIRED_BREAKFAST_WORDS}
-                    current={breakfastWords.length}
-                />
-            </div>
-            <div ref={boardRef} className={styles.board}>
-                <Board board={board}/>
-            </div>
-            <div ref={charsRef} className={styles.chars}>
-                <BoardChars chars={chars}/>
-            </div>
-            <div className={styles.actions}>
-                <div ref={actionsGroup1Ref} className={styles.actionGroup}>
-                    <CompleteBoardButton className={styles.action}/>
-                </div>
-                <div ref={actionsGroup2Ref} className={styles.actionGroup}>
-                    <CompleteWordButton className={styles.action}/>
-                    <ClearCharButton className={styles.action}/>
-                </div>
-            </div>
+            <GameContent
+                boardRef={boardRef}
+                charsRef={charsRef}
+                actionsGroup1Ref={actionsGroup1Ref}
+                actionsGroup2Ref={actionsGroup2Ref}
+                {...game}
+            />
             <SwitchTransition mode='out-in'>
                 <CSSTransition key={step} timeout={ANIMATION_DURATION} classNames={ANIMATION_NAME}>
                     <div className={styles.panels}>
@@ -152,8 +129,7 @@ export function Step1234(props) {
                                 <Panel className={styles.step1Panel2}>
                                     <Text>
                                         Далее <Text as="span" weight={500}>по&nbsp;порядку ставь нужные буквы
-                                        из&nbsp;набора</Text>&nbsp;—
-                                        следуй подсказкам на&nbsp;поле. Помни, мы загадали только <Text
+                                        из&nbsp;набора</Text>. Помни, мы загадали только <Text
                                         as="span"
                                         weight={500}>существительные
                                         в&nbsp;единственном числе</Text>.
@@ -168,11 +144,7 @@ export function Step1234(props) {
                         {step === 2 && (
                             <Panel className={styles.step2Panel}>
                                 <Text>
-                                    <Text as="span" weight={500}>Набор букв</Text> находится здесь.
-                                    Жми&nbsp;кнопку <Text
-                                    as="span" weight={500}>обновления</Text>, если&nbsp;совсем ничего
-                                    не&nbsp;можешь
-                                    из&nbsp;них&nbsp;составить.
+                                    <Text as="span" weight={500}>Набор букв</Text> находится здесь. Нажимай&nbsp;кнопку <Text as="span" weight={500}>обновления</Text>, если&nbsp;совсем ничего не&nbsp;можешь из&nbsp;них&nbsp;составить. Это&nbsp;можно делать сколько и&nbsp;когда угодно.
                                 </Text>
                                 <Button className={styles.step2PanelNextButton} width={79.6} height={36}
                                         onClick={onNextStep}>

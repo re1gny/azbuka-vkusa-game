@@ -71,7 +71,17 @@ $training-animation-name: success-text;
 
 .actions {
   display: flex;
+  align-items: center;
   margin-top: calc(19px * var(--size-ratio));
+}
+
+.actionsGroup {
+  display: flex;
+  align-items: center;
+
+  & + & {
+    margin-left: calc(11.5px * var(--size-ratio));
+  }
 }
 
 .action {

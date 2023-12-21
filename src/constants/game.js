@@ -3,15 +3,14 @@ export const BOARD_ROWS = 9
 export const MAX_BOARDS = 5
 export const MAX_CHARS = 12
 export const CAREER_WORDS = [
-    'зарплата',
     'развитие',
     'карьера',
     'баланс',
     'курс',
-    'коллеги',
+    'коллега',
     'отчет',
     'клиент',
-    'работа',
+    'зарплата',
     'успех',
     'рост',
     'офис',
@@ -24,6 +23,7 @@ export const CAREER_WORDS = [
     'оклад',
     'стаж',
     'опыт',
+    'команда',
 ]
 export const BREAKFAST_WORDS = [
     'кофе',
@@ -32,11 +32,8 @@ export const BREAKFAST_WORDS = [
     'сэндвич',
     'авокадо',
     'блин',
-    'блинчик',
     'сырник',
     'творог',
-    'кофе',
-    'сок',
     'йогурт',
     'яйцо',
     'тунец',
@@ -46,9 +43,9 @@ export const BREAKFAST_WORDS = [
     'хлопья',
     'масло',
     'яичница',
-    'оладушки',
+    'оладушек',
     'сосиска',
-    'вафли',
+    'вафля',
     'бекон',
     'круассан',
     'глазунья',
@@ -68,7 +65,7 @@ export const SUCCESS_TEXTS = [
     'а ты не промах',
     'вот это по-нашему, по-азбучному',
 ]
-export const REQUIRED_CAREER_WORDS = CAREER_WORDS.length - 3
-export const REQUIRED_BREAKFAST_WORDS = BREAKFAST_WORDS.length - 3
-export const MAX_CAREER_WORDS = CAREER_WORDS.length
-export const MAX_BREAKFAST_WORDS = BREAKFAST_WORDS.length
+export const REQUIRED_CAREER_WORDS = 10
+export const REQUIRED_BREAKFAST_WORDS = 14
+export const MAX_CAREER_WORDS = 21
+export const MAX_BREAKFAST_WORDS = 27

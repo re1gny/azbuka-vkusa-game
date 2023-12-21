@@ -7,11 +7,8 @@ $animation-name: switch;
 }
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
   height: 100%;
-  padding: calc(20px * var(--size-ratio)) calc(32px * var(--size-ratio));
 }
 
 .backdrop {
@@ -23,52 +20,6 @@ $animation-name: switch;
   background: #181717A6;
   z-index: 2;
   transition: clip-path $animation-duration;
-}
-
-.progresses {
-  display: flex;
-  align-items: center;
-  margin-top: calc(67px * var(--size-ratio));
-}
-
-.progress {
-  width: calc(132px * var(--size-ratio));
-
-  & + & {
-    margin-left: calc(16px * var(--size-ratio));
-  }
-}
-
-.board {
-  position: relative;
-  margin-top: calc(33px * var(--size-ratio));
-}
-
-.chars {
-  position: relative;
-  margin-top: calc(19px * var(--size-ratio));
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  margin-top: calc(19px * var(--size-ratio));
-}
-
-.actionGroup {
-  display: flex;
-  align-items: center;
-  position: relative;
-
-  & + & {
-    margin-left: calc(11.5px * var(--size-ratio));
-  }
-}
-
-.action {
-  & + & {
-    margin-left: calc(11.5px * var(--size-ratio));
-  }
 }
 
 .panels {

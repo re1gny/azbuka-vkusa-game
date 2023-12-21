@@ -8,7 +8,9 @@ import {
     MAX_BOARDS,
     REQUIRED_BREAKFAST_WORDS,
     REQUIRED_CAREER_WORDS,
-    SUCCESS_TEXTS
+    SUCCESS_TEXTS,
+    MAX_CAREER_WORDS,
+    MAX_BREAKFAST_WORDS,
 } from "../constants/game";
 import {getLast} from "../utils/getLast";
 import {createBoard} from "../utils/createBoard";
@@ -234,17 +236,21 @@ export function useGame(params) {
                 board.confirmed[y][x] = true
             })
         }))
-        refreshChars()
 
         if (wordsWithInfo.includes(word)) {
             showWordInfo(word)
         }
 
-        if (newCareerWords.length >= REQUIRED_CAREER_WORDS && newBreakfastWords.length >= REQUIRED_BREAKFAST_WORDS) {
+        if (newCareerWords.length === REQUIRED_CAREER_WORDS && newBreakfastWords.length === REQUIRED_BREAKFAST_WORDS) {
             onWin?.()
             showWinConfirm()
         }
 
+        if (newCareerWords.length === MAX_CAREER_WORDS && newBreakfastWords.length === MAX_BREAKFAST_WORDS) {
+            onComplete?.()
+        }
+
+        refreshChars()
         showSuccessText()
     }, [
         wordsWithInfo,

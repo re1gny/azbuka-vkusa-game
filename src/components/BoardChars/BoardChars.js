@@ -1,3 +1,4 @@
+import {forwardRef} from "react";
 import cn from 'classnames'
 import RefreshIcon from "../../assets/images/refresh.svg";
 import {MAX_CHARS} from "../../constants/game";
@@ -6,11 +7,11 @@ import {Button} from "../Button";
 import {Image} from "../Image";
 import styles from './BoardChars.module.scss'
 
-export function BoardChars(props) {
+function BoardCharsComponent(props, ref) {
     const {className, chars, onSelect, onRefresh} = props
 
     return (
-        <div className={cn(styles.wrapper, className)}>
+        <div ref={ref} className={cn(styles.wrapper, className)}>
             <Button width={27} height={79} color="#F9DD4E" onClick={onRefresh}>
                 <Image className={styles.refreshButtonIcon} src={RefreshIcon} />
             </Button>
@@ -28,3 +29,5 @@ export function BoardChars(props) {
         </div>
     )
 }
+
+export const BoardChars = forwardRef(BoardCharsComponent)

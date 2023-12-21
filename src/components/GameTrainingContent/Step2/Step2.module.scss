@@ -1,0 +1,39 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: calc(90px * var(--size-ratio)) calc(20px * var(--size-ratio)) calc(20px * var(--size-ratio));
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: calc(13px * var(--size-ratio));
+}
+
+.board {
+  margin-top: calc(18px * var(--size-ratio));
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  margin-top: calc(43px * var(--size-ratio));
+}
+
+.nextButton {
+  margin-left: calc(33px * var(--size-ratio));
+}
+
+.nextButtonIcon {
+  width: calc(46px * var(--size-ratio));
+  height: calc(16px * var(--size-ratio));
+}
+
+.prevButtonIcon {
+  width: calc(46px * var(--size-ratio));
+  height: calc(16px * var(--size-ratio));
+  transform: rotate(180deg);
+}

@@ -11,6 +11,13 @@ $animation-name: steps-switch;
   height: 100%;
 }
 
+.skipButton {
+  position: absolute;
+  top: calc(20px * var(--size-ratio));
+  left: calc(22px * var(--size-ratio));
+  z-index: 3;
+}
+
 .steps {
   position: relative;
   height: 100%;
