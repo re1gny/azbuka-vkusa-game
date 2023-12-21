@@ -14,7 +14,6 @@ import {
 } from "../constants/game";
 import {getLast} from "../utils/getLast";
 import {createBoard} from "../utils/createBoard";
-import {getChars} from "../utils/getChars";
 import {createChars} from "../utils/createChars";
 import {isSameBoardCell} from "../utils/isSameBoardCell";
 import {parseBoard} from "../utils/parseBoard";
@@ -54,7 +53,7 @@ export function useGame(params) {
         const words = entries.map(({word}) => word)
         return words.filter(word => allBreakfastWords.includes(word))
     })
-    const [chars, setChars] = useState(createChars(shuffleArray(getChars(...allCareerWords, ...allBreakfastWords))))
+    const [chars, setChars] = useState(createChars(allCareerWords, allBreakfastWords, careerWords, breakfastWords))
     const board = useMemo(() => getLast(boards), [boards])
 
     const reset = useCallback((position) => {
@@ -82,8 +81,8 @@ export function useGame(params) {
             const words = entries.map(({word}) => word)
             return words.filter(word => allBreakfastWords.includes(word))
         })
-        setChars(createChars(shuffleArray(getChars(...allCareerWords, ...allBreakfastWords))))
-    }, [allCareerWords])
+        setChars(createChars(allCareerWords, allBreakfastWords, careerWords, breakfastWords))
+    }, [initialBoardsState, boardRows, boardColumns, allCareerWords, allBreakfastWords, careerWords, breakfastWords])
 
     const selectCell = useCallback((position) => {
         setBoards(produce(boards, (draft) => {
@@ -175,8 +174,8 @@ export function useGame(params) {
     }, [successText])
 
     const refreshChars = useCallback(() => {
-        setChars(shuffleArray(chars).map(({char}) => ({char, cell: null})))
-    }, [chars])
+        setChars(createChars(allCareerWords, allBreakfastWords, careerWords, breakfastWords))
+    }, [allCareerWords, allBreakfastWords, careerWords, breakfastWords])
 
     const completeBoard = useCallback(() => {
         if (boards.length >= MAX_BOARDS) {

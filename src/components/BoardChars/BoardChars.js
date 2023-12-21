@@ -1,7 +1,6 @@
 import {forwardRef} from "react";
 import cn from 'classnames'
 import RefreshIcon from "../../assets/images/refresh.svg";
-import {MAX_CHARS} from "../../constants/game";
 import {Text} from "../Text";
 import {Button} from "../Button";
 import {Image} from "../Image";
@@ -16,7 +15,7 @@ function BoardCharsComponent(props, ref) {
                 <Image className={styles.refreshButtonIcon} src={RefreshIcon} />
             </Button>
             <div className={styles.boardChars}>
-                {chars.slice(0, MAX_CHARS).map(({char, cell}, index) => (
+                {chars.map(({char, cell}, index) => (
                     <div
                         key={index}
                         className={cn(styles.boardChar, !!cell && styles.empty)}
