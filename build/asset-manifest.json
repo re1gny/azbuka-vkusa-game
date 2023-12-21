@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "./static/css/main.fc0ff502.css",
+    "main.css": "./static/css/main.8555fcd0.css",
     "main.js": "./static/js/main.6da4a144.js",
     "static/media/AzbukaVkusa-Light.ttf": "./static/media/AzbukaVkusa-Light.53e9ec7ef05aefc4b029.ttf",
     "static/media/AzbukaVkusa-Regular.ttf": "./static/media/AzbukaVkusa-Regular.3415b25d281d19d1385e.ttf",
@@ -17,11 +17,11 @@
     "static/media/cross.svg": "./static/media/cross.ff84150c2406082a3c2497f3fd368b58.svg",
     "static/media/lineThrough.svg": "./static/media/lineThrough.56927248d143e6a4113866fb7b7e36b2.svg",
     "static/media/check.svg": "./static/media/check.fb8d72e4fd2b054d750e24e7c33f5d4a.svg",
-    "main.fc0ff502.css.map": "./static/css/main.fc0ff502.css.map",
+    "main.8555fcd0.css.map": "./static/css/main.8555fcd0.css.map",
     "main.6da4a144.js.map": "./static/js/main.6da4a144.js.map"
   },
   "entrypoints": [
-    "static/css/main.fc0ff502.css",
+    "static/css/main.8555fcd0.css",
     "static/js/main.6da4a144.js"
   ]
 }
