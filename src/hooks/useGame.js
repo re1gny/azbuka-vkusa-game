@@ -27,6 +27,7 @@ export function useGame(params) {
         boardColumns = BOARD_COLUMNS,
         careerWords: allCareerWords = CAREER_WORDS,
         breakfastWords: allBreakfastWords = BREAKFAST_WORDS,
+        withSuccessText = true,
         onWin,
         onComplete,
     } = params || {}
@@ -103,8 +104,11 @@ export function useGame(params) {
             const [x, y] = board.selected
             board.chars[y][x] = char
         }))
+
         setChars(produce(chars, (draft) => {
-            draft[index].cell = getLast(boards).selected
+            if (draft[index]) {
+                draft[index].cell = getLast(boards).selected
+            }
         }))
     }, [boards, chars])
 
@@ -153,6 +157,10 @@ export function useGame(params) {
     }, [])
 
     const showSuccessText = useCallback(() => {
+        if (!withSuccessText) {
+            return
+        }
+
         function showText() {
             const randomSuccessTexts = shuffleArray(SUCCESS_TEXTS)
             setSuccessText(randomSuccessTexts[0] === successText ? randomSuccessTexts[1] : randomSuccessTexts[0])
@@ -171,7 +179,7 @@ export function useGame(params) {
         } else {
             showText()
         }
-    }, [successText])
+    }, [successText, withSuccessText])
 
     const refreshChars = useCallback(() => {
         setChars(createChars(allCareerWords, allBreakfastWords, careerWords, breakfastWords))

@@ -1,8 +1,8 @@
-import {useRef} from "react";
+import {useCallback, useRef} from "react";
 
 export function useCallbackRef(callback) {
     const callbackRef = useRef()
     callbackRef.current = callback
 
-    return (...args) => callbackRef.current(...args)
+    return useCallback((...args) => callbackRef.current(...args), [])
 }

@@ -42,8 +42,9 @@ const BOARDS_INITIAL_STATE_2 = [
 export function GameTrainingContent(props) {
     const {className, onComplete} = props
     const [step, setStep] = useState(1)
-    const game1 = useGame({initialBoardsState: BOARDS_INITIAL_STATE_1, boardRows: 8, boardColumns: 7})
-    const game2 = useGame({initialBoardsState: BOARDS_INITIAL_STATE_2, boardRows: 8, boardColumns: 7})
+    const game1 = useGame({withSuccessText: false, boardRows: 8, boardColumns: 7})
+    const game2 = useGame({withSuccessText: false, initialBoardsState: BOARDS_INITIAL_STATE_1, boardRows: 8, boardColumns: 7})
+    const game3 = useGame({withSuccessText: false, initialBoardsState: BOARDS_INITIAL_STATE_2, boardRows: 8, boardColumns: 7})
 
     function nextStep() {
         setStep(prev => prev + 1)
@@ -65,10 +66,10 @@ export function GameTrainingContent(props) {
                             <Step1 step={step} {...game1} onNextStep={nextStep} />
                         )}
                         {step === 2 && (
-                            <Step2 step={step} {...game1} onNextStep={nextStep} onPrevStep={prevStep} />
+                            <Step2 step={step} {...game2} onNextStep={nextStep} onPrevStep={prevStep} />
                         )}
                         {step === 3 && (
-                            <Step3 step={step} {...game2} onNextStep={nextStep} onPrevStep={prevStep} />
+                            <Step3 step={step} {...game3} onNextStep={nextStep} onPrevStep={prevStep} />
                         )}
                         {step === 4 && (
                             <Step4 step={step} onPrevStep={prevStep} />
