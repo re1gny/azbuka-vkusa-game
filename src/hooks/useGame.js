@@ -42,7 +42,7 @@ export function useGame(params) {
     const [successTextShown, setSuccessTextShown] = useState(false)
     const [successText, setSuccessText] = useState(null)
     const successTextTimerRef = useRef()
-    const [boards, setBoards] = useState([createBoard(initialBoardsState?.[0], boardRows, boardColumns)])
+    const [boards, setBoards] = useState(() => [createBoard(initialBoardsState?.[0], boardRows, boardColumns)])
     const [careerWords, setCareerWords] = useState(() => {
         const {entries} = parseBoard(getLast(boards))
         const words = entries.map(({word}) => word)
@@ -53,7 +53,7 @@ export function useGame(params) {
         const words = entries.map(({word}) => word)
         return words.filter(word => allBreakfastWords.includes(word))
     })
-    const [chars, setChars] = useState(createChars(allCareerWords, allBreakfastWords, careerWords, breakfastWords))
+    const [chars, setChars] = useState(() => createChars(allCareerWords, allBreakfastWords, careerWords, breakfastWords))
     const board = useMemo(() => getLast(boards), [boards])
 
     const reset = useCallback((position) => {
