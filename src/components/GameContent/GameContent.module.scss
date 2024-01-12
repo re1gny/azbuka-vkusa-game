@@ -59,6 +59,7 @@ $training-animation-name: success-text;
   top: calc(9px * var(--size-ratio));
   left: 50%;
   transform: translateX(-50%);
+  text-transform: lowercase;
 }
 
 .board {

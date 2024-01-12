@@ -104,7 +104,7 @@ export function GameContent(props) {
                                 unmountOnExit
                             >
                                 <Text className={styles.successText} size={20} weight={500} wrap="nowrap">
-                                    {successText}
+                                    {successText?.text}
                                 </Text>
                             </CSSTransition>
                         </div>

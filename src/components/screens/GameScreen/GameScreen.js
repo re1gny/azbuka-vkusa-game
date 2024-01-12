@@ -1,10 +1,7 @@
 import {useProgress} from "../../../contexts/ProgressContext";
-import {BOARD_ROWS, BOARD_COLUMNS} from "../../../constants/game";
+import {BOARD_ROWS, BOARD_COLUMNS, WORDS_WITH_INFO} from "../../../constants/game";
 import {useGame} from "../../../hooks/useGame";
 import {GameContent} from "../../GameContent";
-
-
-const WORDS_WITH_INFO = []
 
 const BOARDS_INITIAL_STATE = [
     [
@@ -19,7 +16,7 @@ const BOARDS_INITIAL_STATE = [
 ]
 
 export function GameScreen() {
-    const {next, win, screen} = useProgress()
+    const {next, win} = useProgress()
     const game = useGame({
         initialBoardsState: BOARDS_INITIAL_STATE,
         wordsWithInfo: WORDS_WITH_INFO,

@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useRef, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {produce} from "immer";
 import {
     BOARD_COLUMNS,
@@ -11,6 +11,7 @@ import {
     SUCCESS_TEXTS,
     MAX_CAREER_WORDS,
     MAX_BREAKFAST_WORDS,
+    WORDS_WITH_INFO,
 } from "../constants/game";
 import {getLast} from "../utils/getLast";
 import {createBoard} from "../utils/createBoard";
@@ -22,7 +23,7 @@ import {shuffleArray} from "../utils/shuffleArray";
 export function useGame(params) {
     const {
         initialBoardsState = [],
-        wordsWithInfo = [],
+        wordsWithInfo = WORDS_WITH_INFO,
         boardRows = BOARD_ROWS,
         boardColumns = BOARD_COLUMNS,
         careerWords: allCareerWords = CAREER_WORDS,
@@ -42,7 +43,9 @@ export function useGame(params) {
     const [winConfirmShown, setWinConfirmShown] = useState(false)
     const [successTextShown, setSuccessTextShown] = useState(false)
     const [successText, setSuccessText] = useState(null)
+    const [isCompleting, setIsCompleting] = useState(false)
     const successTextTimerRef = useRef()
+    const winConfirmWasShownRef = useRef(false)
     const [boards, setBoards] = useState(() => [createBoard(initialBoardsState?.[0], boardRows, boardColumns)])
     const [careerWords, setCareerWords] = useState(() => {
         const {entries} = parseBoard(getLast(boards))
@@ -163,7 +166,7 @@ export function useGame(params) {
 
         function showText() {
             const randomSuccessTexts = shuffleArray(SUCCESS_TEXTS)
-            setSuccessText(randomSuccessTexts[0] === successText ? randomSuccessTexts[1] : randomSuccessTexts[0])
+            setSuccessText(successText && randomSuccessTexts[0].id === successText.id ? randomSuccessTexts[1] : randomSuccessTexts[0])
             setSuccessTextShown(true)
             successTextTimerRef.current = setTimeout(() => {
                 setSuccessTextShown(false)
@@ -211,14 +214,15 @@ export function useGame(params) {
         }
 
         const {word, positions} = newEntries[0]
-        const newCareerWords = [...careerWords, word]
-        const newBreakfastWords = [...breakfastWords, word]
+        const newCareerWords = [...careerWords]
+        const newBreakfastWords = [...breakfastWords]
 
         if (allCareerWords.includes(word)) {
             if (careerWords.includes(word)) {
                 showRepeatedWordError(word)
                 return
             } else {
+                newCareerWords.push(word)
                 setCareerWords(newCareerWords)
             }
         } else if (allBreakfastWords.includes(word)) {
@@ -226,6 +230,7 @@ export function useGame(params) {
                 showRepeatedWordError(word)
                 return
             } else {
+                newBreakfastWords.push(word)
                 setBreakfastWords(newBreakfastWords)
             }
         } else {
@@ -248,13 +253,14 @@ export function useGame(params) {
             showWordInfo(word)
         }
 
-        if (newCareerWords.length === REQUIRED_CAREER_WORDS && newBreakfastWords.length === REQUIRED_BREAKFAST_WORDS) {
+        if (newCareerWords.length >= REQUIRED_CAREER_WORDS && newBreakfastWords.length >= REQUIRED_BREAKFAST_WORDS && !winConfirmWasShownRef.current) {
             onWin?.()
             showWinConfirm()
+            winConfirmWasShownRef.current = true
         }
 
         if (newCareerWords.length === MAX_CAREER_WORDS && newBreakfastWords.length === MAX_BREAKFAST_WORDS) {
-            onComplete?.()
+            setIsCompleting(true)
         }
 
         refreshChars()
@@ -309,6 +315,12 @@ export function useGame(params) {
             winConfirmShown,
         }
     }, [wordInfoShown, winConfirmShown])
+
+    useEffect(() => {
+        if (isCompleting && !wordInfoShown) {
+            onComplete?.()
+        }
+    }, [isCompleting, wordInfoShown]);
 
     return {
         successText,
