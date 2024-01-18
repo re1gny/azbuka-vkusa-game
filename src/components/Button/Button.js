@@ -1,8 +1,8 @@
-import {createElement, useMemo} from 'react'
+import {createElement, forwardRef, useMemo} from 'react'
 import cn from 'classnames'
 import styles from './Button.module.scss'
 
-export function Button(props) {
+function ButtonComponent(props, ref) {
     const {
         className,
         children,
@@ -10,6 +10,8 @@ export function Button(props) {
         height = 'auto',
         color = '#6DB63D',
         as = 'button',
+        type = 'button',
+        disabled = false,
         onClick,
     } = props
 
@@ -32,10 +34,15 @@ export function Button(props) {
     return createElement(
         as,
         {
+            ref,
             className: cn(styles.button, className),
+            type,
+            disabled,
             style: {width: formattedWidth, height: formattedHeight, '--background-color': color},
             onClick,
         },
         children,
     )
 }
+
+export const Button = forwardRef(ButtonComponent)

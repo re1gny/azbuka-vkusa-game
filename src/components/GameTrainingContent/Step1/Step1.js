@@ -64,11 +64,11 @@ export function Step1(props) {
                         <BoardCell className={styles.cell2} selected={isBoardCellSelected([0, 1], board)} />
                     </div>
                     <Text className={styles.panel1Text1}>
-                        <Text as="span" weight={500}>Выделяй&nbsp;пустую клетку</Text>, в&nbsp;которую собираешься поставить букву. Далее <Text as="span" weight={500}>по&nbsp;порядку ставь нужные буквы из&nbsp;набора</Text>.
+                        <Text as="span" weight={500}>Выделяй&nbsp;пустую клетку</Text>, в&nbsp;которую собираешься поставить букву. Далее <Text as="span" weight={500}>по&nbsp;порядку вводи буквы из&nbsp;набора</Text>. Здесь всегда <Text as="span" weight={500}>есть&nbsp;1&nbsp;или&nbsp;2&nbsp;слова</Text>!
                     </Text>
                     <BoardChars className={styles.chars} chars={chars} />
                     <Text className={styles.panel1Text2}>
-                        Ты можешь <Text as="span" weight={500}>обновлять</Text> его сколько хочешь, в&nbsp;любой момент игры.
+                        <Text as="span" weight={500}>Обновляй</Text> его&nbsp;сколько угодно, если&nbsp;не&nbsp;можешь составить слово.
                     </Text>
                 </Panel>
                 <Panel className={styles.panel2} padding={[12, 16]} withBorder color="#FFF6DB">

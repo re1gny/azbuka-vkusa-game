@@ -20,26 +20,45 @@ $training-animation-name: success-text;
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.hintsButton {
+  display: flex;
+  align-items: center;
+}
+
+.hintsImage {
+  width: calc(18px * var(--size-ratio));
+  height: calc(22px * var(--size-ratio));
+}
+
+.hintsText {
+  margin-left: calc(3.5px * var(--size-ratio));
 }
 
 .logo {
   width: calc(150px * var(--size-ratio));
   height: calc(21px * var(--size-ratio));
+  margin-left: calc(21px * var(--size-ratio));
 }
 
-.boardNumber {
-  margin-left: calc(16.5px * var(--size-ratio));
+.subHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: calc(8px * var(--size-ratio));
 }
 
 .helpButton {
-  margin-left: calc(15px * var(--size-ratio));
   border-radius: 50%;
+  margin-left: calc(21px * var(--size-ratio));
 }
 
 .progresses {
   display: flex;
   align-items: center;
-  margin-top: calc(36.42px * var(--size-ratio));
+  margin-top: calc(7px * var(--size-ratio));
 }
 
 .progress {

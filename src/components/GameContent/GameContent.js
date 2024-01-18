@@ -2,6 +2,7 @@ import {useState} from "react";
 import cn from "classnames";
 import {CSSTransition, SwitchTransition} from "react-transition-group";
 import Logo from "../../assets/images/logo.png";
+import Lamp from "../../assets/images/lamp.svg";
 import {Image} from "../Image";
 import {Text} from "../Text";
 import {Button} from "../Button";
@@ -31,7 +32,7 @@ const TRAINING_ANIMATION_DURATION = parseInt(styles.trainingAnimationDuration)
 const TRAINING_ANIMATION_NAME = styles.trainingAnimationName
 
 export function GameContent(props) {
-    const {className, charsRef, boardRef, actionsGroup1Ref, actionsGroup2Ref, onComplete, ...game} = props
+    const {className, charsRef, boardRef, hintsRef, actionsGroup1Ref, actionsGroup2Ref, onComplete, ...game} = props
     const {
         unknownWordErrorShown,
         unknownWordErrorParam,
@@ -52,6 +53,7 @@ export function GameContent(props) {
         boards,
         board,
         chars,
+        hintsAmount,
         selectCell,
         selectChar,
         refreshChars,
@@ -60,6 +62,7 @@ export function GameContent(props) {
         clearChar,
         completeBoard,
         completeWord,
+        hintChars,
     } = game
     const [trainingShown, setTrainingShown] = useState(false)
 
@@ -71,13 +74,19 @@ export function GameContent(props) {
                 ) : (
                     <div className={cn(styles.wrapper, className)}>
                         <div className={styles.header}>
+                            <Button ref={hintsRef}  className={styles.hintsButton} width={56} height={30} onClick={hintChars}>
+                                <Image className={styles.hintsImage} src={Lamp} />
+                                <Text className={styles.hintsText} size={18} weight={400} color="#FFFFFF">{hintsAmount}</Text>
+                            </Button>
                             <Image className={styles.logo} src={Logo}/>
-                            <Text className={styles.boardNumber} size={16} weight={400} wrap="nowrap">
-                                Поле №{boards.length}
-                            </Text>
-                            <Button className={styles.helpButton} width={31.5} height={31.5} onClick={() => setTrainingShown(true)}>
+                            <Button className={styles.helpButton} width={31} height={31} onClick={() => setTrainingShown(true)}>
                                 <Text size={20} weight={400}>?</Text>
                             </Button>
+                        </div>
+                        <div className={styles.subHeader}>
+                            <Text size={18} weight={500} wrap="nowrap">
+                                Поле №{boards.length}
+                            </Text>
                         </div>
                         <div className={styles.progresses}>
                             <BoardProgress

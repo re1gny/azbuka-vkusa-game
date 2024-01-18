@@ -13,7 +13,9 @@ import styles from './GameTrainingContent.module.scss'
 const ANIMATION_DURATION = parseInt(styles.animationDuration)
 const ANIMATION_NAME = styles.animationName
 
-const BOARDS_INITIAL_STATE_1 = [
+const CHARS_1 = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л']
+
+const BOARDS_INITIAL_STATE_2 = [
     [
         ['р', 'а', 'б', 'о', 'т', 'а', null],
         ['с', 'о', 'к', null, null, null, null],
@@ -26,7 +28,7 @@ const BOARDS_INITIAL_STATE_1 = [
     ]
 ]
 
-const BOARDS_INITIAL_STATE_2 = [
+const BOARDS_INITIAL_STATE_3 = [
     [
         ['р', 'а', 'б', 'о', 'т', 'а', null],
         [null, null, null, null, null, null, null],
@@ -42,9 +44,9 @@ const BOARDS_INITIAL_STATE_2 = [
 export function GameTrainingContent(props) {
     const {className, onComplete} = props
     const [step, setStep] = useState(1)
-    const game1 = useGame({withSuccessText: false, boardRows: 8, boardColumns: 7})
-    const game2 = useGame({withSuccessText: false, initialBoardsState: BOARDS_INITIAL_STATE_1, boardRows: 8, boardColumns: 7})
-    const game3 = useGame({withSuccessText: false, initialBoardsState: BOARDS_INITIAL_STATE_2, boardRows: 8, boardColumns: 7})
+    const game1 = useGame({withSuccessText: false, chars: CHARS_1})
+    const game2 = useGame({withSuccessText: false, initialBoardsState: BOARDS_INITIAL_STATE_2, boardRows: 8, boardColumns: 7})
+    const game3 = useGame({withSuccessText: false, initialBoardsState: BOARDS_INITIAL_STATE_3, boardRows: 8, boardColumns: 7})
 
     function nextStep() {
         setStep(prev => prev + 1)

@@ -1,26 +1,42 @@
+$switch-animation-duration: 300ms;
+$switch-animation-name: switch;
+
+:export {
+  switchAnimationDuration: $switch-animation-duration;
+  switchAnimationName: $switch-animation-name;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: calc(42px * var(--size-ratio)) calc(44px * var(--size-ratio));
+  padding: calc(30px * var(--size-ratio)) calc(44px * var(--size-ratio));
 }
 
-.subTitle {
-  margin-top: calc(2px * var(--size-ratio));
-}
-
-.emailWrapper {
+.phoneWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: calc(29px * var(--size-ratio));
+  margin-top: calc(10px * var(--size-ratio));
 }
 
-.emailInput {
-  margin-top: calc(14px * var(--size-ratio));
+.phoneInput {
+  margin-top: calc(18px * var(--size-ratio));
 }
 
-.sendEmailButton {
+.phoneCheckbox {
+  margin-top: calc(10px * var(--size-ratio));
+}
+
+.phoneCheckboxText {
+  line-height: calc(15.4px * var(--size-ratio));
+}
+
+.phoneCheckboxLink {
+  color: inherit;
+}
+
+.sendPhoneButton {
   margin-top: calc(14px * var(--size-ratio));
 }
 
@@ -28,9 +44,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: calc(39px * var(--size-ratio));
+  margin-top: calc(28px * var(--size-ratio));
 }
 
 .findJobButton {
   margin-top: calc(10px * var(--size-ratio));
+}
+
+:global(.#{$switch-animation-name}-enter) {
+  &.sendPhoneButtonContent {
+    opacity: 0;
+  }
+}
+
+:global(.#{$switch-animation-name}-enter-active) {
+  &.sendPhoneButtonContent {
+    opacity: 1;
+    transition: opacity $switch-animation-duration;
+  }
+}
+
+:global(.#{$switch-animation-name}-exit) {
+  &.sendPhoneButtonContent {
+    opacity: 1;
+  }
+}
+
+:global(.#{$switch-animation-name}-exit-active) {
+  &.sendPhoneButtonContent {
+    opacity: 0;
+    transition: opacity $switch-animation-duration;
+  }
 }

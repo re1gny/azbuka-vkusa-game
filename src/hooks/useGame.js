@@ -12,6 +12,7 @@ import {
     MAX_CAREER_WORDS,
     MAX_BREAKFAST_WORDS,
     WORDS_WITH_INFO,
+    MAX_HINTS,
 } from "../constants/game";
 import {getLast} from "../utils/getLast";
 import {createBoard} from "../utils/createBoard";
@@ -29,6 +30,7 @@ export function useGame(params) {
         careerWords: allCareerWords = CAREER_WORDS,
         breakfastWords: allBreakfastWords = BREAKFAST_WORDS,
         withSuccessText = true,
+        chars: allChars,
         onWin,
         onComplete,
     } = params || {}
@@ -57,7 +59,8 @@ export function useGame(params) {
         const words = entries.map(({word}) => word)
         return words.filter(word => allBreakfastWords.includes(word))
     })
-    const [chars, setChars] = useState(() => createChars(allCareerWords, allBreakfastWords, careerWords, breakfastWords))
+    const [chars, setChars] = useState(() => createChars(allChars, allCareerWords, allBreakfastWords, careerWords, breakfastWords))
+    const [hintsAmount, setHintsAmount] = useState(MAX_HINTS)
     const board = useMemo(() => getLast(boards), [boards])
 
     const reset = useCallback((position) => {
@@ -85,8 +88,9 @@ export function useGame(params) {
             const words = entries.map(({word}) => word)
             return words.filter(word => allBreakfastWords.includes(word))
         })
-        setChars(createChars(allCareerWords, allBreakfastWords, careerWords, breakfastWords))
-    }, [initialBoardsState, boardRows, boardColumns, allCareerWords, allBreakfastWords, careerWords, breakfastWords])
+        setChars(createChars(allChars, allCareerWords, allBreakfastWords, careerWords, breakfastWords))
+        setHintsAmount(MAX_HINTS)
+    }, [allChars, initialBoardsState, boardRows, boardColumns, allCareerWords, allBreakfastWords, careerWords, breakfastWords])
 
     const selectCell = useCallback((position) => {
         setBoards(produce(boards, (draft) => {
@@ -185,8 +189,8 @@ export function useGame(params) {
     }, [successText, withSuccessText])
 
     const refreshChars = useCallback(() => {
-        setChars(createChars(allCareerWords, allBreakfastWords, careerWords, breakfastWords))
-    }, [allCareerWords, allBreakfastWords, careerWords, breakfastWords])
+        setChars(createChars(allChars, allCareerWords, allBreakfastWords, careerWords, breakfastWords))
+    }, [allCareerWords, allBreakfastWords, careerWords, breakfastWords, allChars])
 
     const completeBoard = useCallback(() => {
         if (boards.length >= MAX_BOARDS) {
@@ -198,7 +202,6 @@ export function useGame(params) {
             getLast(draft).selected = null
             draft.push(createBoard(initialBoardsState?.[draft.length], boardRows, boardColumns))
         }))
-        refreshChars()
     }, [boards, initialBoardsState, boardRows, boardColumns, onComplete, refreshChars])
 
     const completeWord = useCallback(() => {
@@ -263,7 +266,6 @@ export function useGame(params) {
             setIsCompleting(true)
         }
 
-        refreshChars()
         showSuccessText()
     }, [
         wordsWithInfo,
@@ -301,6 +303,14 @@ export function useGame(params) {
             board.chars[y][x] = null
         }))
     }, [boards, chars])
+
+    const hintChars = useCallback(() => {
+        if (hintsAmount <= 0) {
+            return
+        }
+
+        setHintsAmount(prev => prev - 1)
+    }, [hintsAmount])
 
     const processedParams = useMemo(() => {
         if (wordInfoShown) {
@@ -350,6 +360,8 @@ export function useGame(params) {
         boards,
         board,
         chars,
+        hintsAmount,
+        hintChars,
         selectCell,
         selectChar,
         completeBoard,

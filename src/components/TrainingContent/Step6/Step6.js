@@ -1,7 +1,5 @@
 import cn from "classnames";
 import ArrowRightShort from "../../../assets/images/arrowRightShort.svg";
-import ArrowRightLong from "../../../assets/images/arrorRightLong.svg";
-import ArrowBottomLong from "../../../assets/images/arrowBottomLong.svg";
 import {Image} from "../../Image";
 import {Button} from "../../Button";
 import {Text} from "../../Text";
@@ -15,16 +13,12 @@ export function Step6(props) {
 
     return (
         <div className={cn(styles.wrapper, className)}>
-            <Text size={44} weight={500}>как можно</Text>
+            <Text size={44} weight={500}>как нельзя</Text>
             <Panel className={styles.panel} padding={[20, 25, 26]} withBorder color="#FFF6DB">
                 <Text size={20}>
-                    Слова читаются <Text as="span" size={20} weight={500}>слева направо и&nbsp;сверху вниз</Text>:
+                    <Text as="span" size={20} weight={500}>Нельзя</Text> располагать слова <Text as="span" size={20} weight={500}>вплотную</Text> друг к&nbsp;другу и&nbsp;<Text as="span" size={20} weight={500}>по&nbsp;диагонали</Text>:
                 </Text>
-                <div className={styles.boardWrapper}>
-                    <Board className={styles.board} board={board}/>
-                    <Image className={styles.topArrow} src={ArrowRightLong}/>
-                    <Image className={styles.rightArrow} src={ArrowBottomLong}/>
-                </div>
+                <Board className={styles.board} board={board}/>
             </Panel>
             <Button className={styles.nextButton} width={123} height={36} onClick={onNextStep}>
                 <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>

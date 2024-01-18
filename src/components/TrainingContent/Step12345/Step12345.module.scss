@@ -32,7 +32,7 @@ $animation-name: switch;
 
 .step1Panel1 {
   position: absolute;
-  top: calc(66px * var(--size-ratio));
+  top: calc(68px * var(--size-ratio));
   left: 50%;
   transform: translateX(-50%);
   width: calc(312px * var(--size-ratio));
@@ -62,9 +62,9 @@ $animation-name: switch;
 
 .step2Panel {
   position: absolute;
-  top: 50%;
+  top: calc(146px * var(--size-ratio));
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: calc(312px * var(--size-ratio));
   display: flex;
   flex-direction: column;
@@ -78,9 +78,9 @@ $animation-name: switch;
 
 .step3Panel {
   position: absolute;
-  top: 50%;
+  top: calc(98px * var(--size-ratio));
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: calc(312px * var(--size-ratio));
   display: flex;
   flex-direction: column;
@@ -94,9 +94,9 @@ $animation-name: switch;
 
 .step4Panel {
   position: absolute;
-  top: 50%;
+  top: calc(298px * var(--size-ratio));
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: calc(312px * var(--size-ratio));
   display: flex;
   flex-direction: column;
@@ -108,27 +108,43 @@ $animation-name: switch;
   margin-top: calc(21px * var(--size-ratio));
 }
 
+.step5Panel {
+  position: absolute;
+  top: calc(255px * var(--size-ratio));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(312px * var(--size-ratio));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.step5PanelNextButton {
+  margin-top: calc(21px * var(--size-ratio));
+}
+
 :global(.#{$animation-name}-enter) {
-  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
+  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel, .step5Panel {
     opacity: 0;
   }
 }
 
 :global(.#{$animation-name}-enter-active) {
-  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
+  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel, .step5Panel {
     opacity: 1;
     transition: opacity $animation-duration;
   }
 }
 
 :global(.#{$animation-name}-exit) {
-  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
+  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel, .step5Panel {
     opacity: 1;
   }
 }
 
 :global(.#{$animation-name}-exit-active) {
-  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel {
+  .step1Panel1, .step1Panel2, .step2Panel, .step3Panel, .step4Panel, .step5Panel {
     opacity: 0;
     transition: opacity $animation-duration;
   }

@@ -1,3 +1,4 @@
+export const MAX_HINTS = 5
 export const BOARD_COLUMNS = 8
 export const BOARD_ROWS = 9
 export const MAX_BOARDS = 5
@@ -24,6 +25,27 @@ export const CAREER_WORDS = [
     'стаж',
     'опыт',
     'команда',
+    'труд',
+    'учет',
+    'дедлайн',
+    'задача',
+    'созвон',
+    'встреча',
+    'ментор',
+    'бадди',
+    'обучение',
+    'мечта',
+    'ценность',
+    'кабинет',
+    'стажер',
+    'интервью',
+    'резюме',
+    'вакансия',
+    'тренинг',
+    'цель',
+    'навык',
+    'план',
+    'оффер',
 ]
 export const BREAKFAST_WORDS = [
     'кофе',
@@ -53,6 +75,41 @@ export const BREAKFAST_WORDS = [
     'овсянка',
     'булка',
     'багет',
+    'яблоко',
+    'хлеб',
+    'капучино',
+    'сыр',
+    'варенье',
+    'чай',
+    'какао',
+    'колбаса',
+    'геркулес',
+    'ветчина',
+    'мюсли',
+    'гранола',
+    'фрукт',
+    'салат',
+    'батон',
+    'шоколад',
+    'печенье',
+    'кекс',
+    'ягода',
+    'орех',
+    'овощ',
+    'крупа',
+    'персик',
+    'помидор',
+    'малина',
+    'джем',
+    'огурец',
+    'банан',
+    'гречка',
+    'манка',
+    'смузи',
+    'суп',
+    'панкейк',
+    'драник',
+    'пирог',
 ]
 export const SUCCESS_TEXTS = [
     {
@@ -92,10 +149,10 @@ export const SUCCESS_TEXTS = [
         text: <>Вот это по-нашему, по-азбучному</>
     },
 ]
-export const REQUIRED_CAREER_WORDS = 10
-export const REQUIRED_BREAKFAST_WORDS = 14
-export const MAX_CAREER_WORDS = 21
-export const MAX_BREAKFAST_WORDS = 27
+export const REQUIRED_CAREER_WORDS = 5
+export const REQUIRED_BREAKFAST_WORDS = 10
+export const MAX_CAREER_WORDS = 42
+export const MAX_BREAKFAST_WORDS = 62
 export const WORDS_WITH_INFO = [
     'кофе',
     'блин',

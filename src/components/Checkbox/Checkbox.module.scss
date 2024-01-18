@@ -1,0 +1,50 @@
+.wrapper {
+  display: block;
+  position: relative;
+  padding-left: calc(44px * var(--size-ratio));
+  cursor: pointer;
+  user-select: none;
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  cursor: pointer;
+
+  &:checked {
+    & ~ .mark {
+      background-color: #6DB63D;
+
+      .check {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+  }
+}
+
+.mark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: calc(30px * var(--size-ratio));
+  height: calc(30px * var(--size-ratio));
+  border-radius: calc(8px * var(--size-ratio));
+  border: calc(2.5px * var(--size-ratio)) solid #6DB63D;
+  background-color: #FFFFFF;
+  transition: background-color 0.1s;
+}
+
+.check {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  width: calc(17px * var(--size-ratio));
+  height: calc(16px * var(--size-ratio));
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+}

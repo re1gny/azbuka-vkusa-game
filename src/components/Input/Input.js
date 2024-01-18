@@ -3,7 +3,7 @@ import cn from 'classnames'
 import styles from './Input.module.scss'
 
 export function Input(props) {
-    const {className, placeholder, width = '100%', value, onChange} = props
+    const {className, placeholder, width = '100%', type = 'text', pattern, disabled, value, onChange} = props
 
     const formattedWidth = useMemo(() => {
         if (typeof width === 'number') {
@@ -19,10 +19,12 @@ export function Input(props) {
 
     return (
         <input
-            type="text"
             className={cn(styles.input, className)}
             style={{width: formattedWidth}}
             value={value}
+            type={type}
+            disabled={disabled}
+            pattern={pattern}
             placeholder={placeholder}
             onChange={handleChange}
         />

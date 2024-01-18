@@ -2,37 +2,27 @@ import {useEffect, useMemo, useRef} from "react";
 import cn from "classnames";
 import {CSSTransition, SwitchTransition} from "react-transition-group";
 import ArrowRightShort from "../../../assets/images/arrowRightShort.svg";
+import {MAX_HINTS} from "../../../constants/game";
 import {Image} from "../../Image";
 import {Button} from "../../Button";
 import {Text} from "../../Text";
 import {Panel} from "../../Panel";
-import {Board} from "../../Board";
-import {BoardProgress} from "../../BoardProgress";
-import {
-    MAX_BREAKFAST_WORDS,
-    MAX_CAREER_WORDS,
-    REQUIRED_BREAKFAST_WORDS,
-    REQUIRED_CAREER_WORDS
-} from "../../../constants/game";
-import {BoardChars} from "../../BoardChars";
-import {CompleteBoardButton} from "../../CompleteBoardButton";
-import {CompleteWordButton} from "../../CompleteWordButton";
-import {ClearCharButton} from "../../ClearCharButton";
 import {wait} from "../../../utils/wait";
 import {useCallbackRef} from "../../../hooks/useCallbackRef";
 import {ClipPath} from "../../ClipPath";
-import styles from './Step1234.module.scss'
 import {GameContent} from "../../GameContent";
+import styles from './Step12345.module.scss'
 
 const ANIMATION_DURATION = parseInt(styles.animationDuration)
 const ANIMATION_NAME = styles.animationName
 
-export function Step1234(props) {
+export function Step12345(props) {
     const {className, step, onNextStep, ...game} = props
     const {selectCell, selectChar, completeWord, reset} = game
     const isLoopingRef = useRef(false)
     const boardRef = useRef()
     const charsRef = useRef()
+    const hintsRef = useRef()
     const actionsGroup1Ref = useRef()
     const actionsGroup2Ref = useRef()
 
@@ -49,9 +39,12 @@ export function Step1234(props) {
             return [charsRef, [8, 8]]
         }
         if (step === 3) {
-            return [actionsGroup2Ref, [7, 8.5]]
+            return [hintsRef, [7, 12]]
         }
         if (step === 4) {
+            return [actionsGroup2Ref, [7, 8.5]]
+        }
+        if (step === 5) {
             return [actionsGroup1Ref, [7, 8.5]]
         }
         return [undefined, undefined]
@@ -67,16 +60,16 @@ export function Step1234(props) {
         try {
             await wait(400)
             assertIsLooping()
-            selectCellRef([4, 5])
+            selectCellRef([4, 4])
             await wait(800)
             assertIsLooping()
-            selectCharRef('а', 100)
+            selectCharRef('с', 7)
             await wait(800)
             assertIsLooping()
-            selectCellRef([6, 5])
+            selectCellRef([6, 4])
             await wait(800)
             assertIsLooping()
-            selectCharRef('а', 100)
+            selectCharRef('к', 3)
             await wait(800)
             assertIsLooping()
             completeWordRef()
@@ -108,6 +101,7 @@ export function Step1234(props) {
             <GameContent
                 boardRef={boardRef}
                 charsRef={charsRef}
+                hintsRef={hintsRef}
                 actionsGroup1Ref={actionsGroup1Ref}
                 actionsGroup2Ref={actionsGroup2Ref}
                 {...game}
@@ -128,7 +122,7 @@ export function Step1234(props) {
                                 </Panel>
                                 <Panel className={styles.step1Panel2}>
                                     <Text>
-                                        Далее <Text as="span" weight={500}>по&nbsp;порядку ставь нужные буквы
+                                        Далее <Text as="span" weight={500}>по&nbsp;порядку вводи нужные буквы
                                         из&nbsp;набора</Text>. Помни, мы загадали только <Text
                                         as="span"
                                         weight={500}>существительные
@@ -144,7 +138,8 @@ export function Step1234(props) {
                         {step === 2 && (
                             <Panel className={styles.step2Panel}>
                                 <Text>
-                                    <Text as="span" weight={500}>Набор букв</Text> находится здесь. Нажимай&nbsp;кнопку <Text as="span" weight={500}>обновления</Text>, если&nbsp;совсем ничего не&nbsp;можешь из&nbsp;них&nbsp;составить. Это&nbsp;можно делать сколько и&nbsp;когда угодно.
+                                    <Text as="span" weight={500}>Набор букв</Text> находится внизу. {'\n'}В&nbsp;нём&nbsp;всегда есть 1&nbsp;или&nbsp;2&nbsp;загаданных слова! {'\n'}Нажимай&nbsp;<Text as="span" weight={500}>кнопку обновления</Text>, если&nbsp;не&nbsp;можешь их&nbsp;найти. {'\n'}Обновлять набор букв можно сколько угодно.
+                                    {'\n\n'}Псс… Тут&nbsp;будут <Text as="span" weight={500}>подсказки</Text>! Когда долго не&nbsp;удаётся найти слово, отобразится его&nbsp;<Text as="span" weight={500}>первая буква</Text>. Если&nbsp;слова два, то&nbsp;покажем&nbsp;обе.
                                 </Text>
                                 <Button className={styles.step2PanelNextButton} width={79.6} height={36}
                                         onClick={onNextStep}>
@@ -155,13 +150,7 @@ export function Step1234(props) {
                         {step === 3 && (
                             <Panel className={styles.step3Panel}>
                                 <Text>
-                                    Слово готово&nbsp;— <Text as="span" weight={500}>отправляй</Text>!
-                                    {'\n'}
-                                    Помни: отправлять можно
-                                    по&nbsp;одному слову за&nbsp;раз.
-                                    {'\n\n'}
-                                    Если что‑то пошло не&nbsp;так&nbsp;— выбери ячейку и&nbsp;<Text as="span"
-                                                                                                    weight={500}>удали</Text> букву.
+                                    На&nbsp;всю&nbsp;игру у&nbsp;тебя есть&nbsp;<Text as="span" weight={500}>{MAX_HINTS}&nbsp;подсказок</Text>, которые покажут, <Text as="span" weight={500}>какие буквы</Text> есть&nbsp;в&nbsp;одном слове.
                                 </Text>
                                 <Button className={styles.step3PanelNextButton} width={123.78} height={36}
                                         onClick={onNextStep}>
@@ -172,6 +161,23 @@ export function Step1234(props) {
                         {step === 4 && (
                             <Panel className={styles.step4Panel}>
                                 <Text>
+                                    Слово готово&nbsp;— <Text as="span" weight={500}>отправляй</Text>!
+                                    {'\n'}
+                                    Помни, отправлять можно
+                                    по&nbsp;одному слову за&nbsp;раз.
+                                    {'\n\n'}
+                                    Если что‑то пошло не&nbsp;так&nbsp;— выбери ячейку и&nbsp;<Text as="span"
+                                                                                                    weight={500}>удали</Text> букву.
+                                </Text>
+                                <Button className={styles.step4PanelNextButton} width={123.78} height={36}
+                                        onClick={onNextStep}>
+                                    <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
+                                </Button>
+                            </Panel>
+                        )}
+                        {step === 5 && (
+                            <Panel className={styles.step5Panel}>
+                                <Text>
                                     Если&nbsp;слова на&nbsp;текущем поле больше нельзя составить&nbsp;— <Text
                                     as="span"
                                     weight={500}>сдавай
@@ -179,7 +185,7 @@ export function Step1234(props) {
                                     as="span"
                                     weight={500}>5&nbsp;полей</Text>.
                                 </Text>
-                                <Button className={styles.step4PanelNextButton} width={123.78} height={36}
+                                <Button className={styles.step5PanelNextButton} width={123.78} height={36}
                                         onClick={onNextStep}>
                                     <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
                                 </Button>
