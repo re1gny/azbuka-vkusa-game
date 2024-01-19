@@ -336,14 +336,14 @@ export function useGame(params) {
                 return
             }
 
-            setSecondaryHintedChars(getSecondaryHintedChars(chars))
+            setSecondaryHintedChars(getSecondaryHintedChars(chars, board))
 
             secondaryHintCharsTimerRef.current = setTimeout(() => {
                 setSecondaryHintedChars(null)
                 runSecondaryHintChars()
             }, 3000)
         }, INACTIVE_HINT_TIMEOUT)
-    }, [chars])
+    }, [chars, board])
 
     const clearSecondaryHintChars = useCallback(() => {
         clearTimeout(secondaryHintCharsTimerRef.current)
@@ -376,7 +376,7 @@ export function useGame(params) {
 
             return clearSecondaryHintChars
         }
-    }, [withSecondaryHint, runSecondaryHintChars, clearSecondaryHintChars]);
+    }, [withSecondaryHint, chars, board.confirmed]);
 
     return {
         successText,
