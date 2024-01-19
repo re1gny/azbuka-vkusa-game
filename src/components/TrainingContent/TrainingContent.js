@@ -69,9 +69,9 @@ const STEP_KEY_MAP = {
 export function TrainingContent(props) {
     const {className, onComplete} = props
     const [step, setStep] = useState(1)
-    const game1 = useGame({withSuccessText: false, initialBoardsState: BOARDS_INITIAL_STATE_1, careerWords: CAREER_WORDS_1, breakfastWords: BREAKFAST_WORDS_1, chars: CHARS_1})
-    const game2 = useGame({withSuccessText: false, initialBoardsState: BOARDS_INITIAL_STATE_2, boardRows: 8, boardColumns: 7})
-    const game3 = useGame({withSuccessText: false, initialBoardsState: BOARDS_INITIAL_STATE_3, boardRows: 8, boardColumns: 7})
+    const game1 = useGame({withSuccessText: false, withSecondaryHint: false, initialBoardsState: BOARDS_INITIAL_STATE_1, careerWords: CAREER_WORDS_1, breakfastWords: BREAKFAST_WORDS_1, chars: CHARS_1})
+    const game2 = useGame({withSuccessText: false, withSecondaryHint: false, initialBoardsState: BOARDS_INITIAL_STATE_2, boardRows: 8, boardColumns: 7})
+    const game3 = useGame({withSuccessText: false, withSecondaryHint: false, initialBoardsState: BOARDS_INITIAL_STATE_3, boardRows: 8, boardColumns: 7})
 
     function nextStep() {
         setStep(prev => prev + 1)

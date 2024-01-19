@@ -3,6 +3,7 @@ export const BOARD_COLUMNS = 8
 export const BOARD_ROWS = 9
 export const MAX_BOARDS = 5
 export const MAX_CHARS = 12
+export const INACTIVE_HINT_TIMEOUT = 5000
 export const CAREER_WORDS = [
     'развитие',
     'карьера',

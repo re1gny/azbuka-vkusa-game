@@ -53,6 +53,8 @@ export function GameContent(props) {
         boards,
         board,
         chars,
+        primaryHintedChars,
+        secondaryHintedChars,
         hintsAmount,
         selectCell,
         selectChar,
@@ -62,7 +64,7 @@ export function GameContent(props) {
         clearChar,
         completeBoard,
         completeWord,
-        hintChars,
+        primaryHintChars,
     } = game
     const [trainingShown, setTrainingShown] = useState(false)
 
@@ -74,7 +76,7 @@ export function GameContent(props) {
                 ) : (
                     <div className={cn(styles.wrapper, className)}>
                         <div className={styles.header}>
-                            <Button ref={hintsRef}  className={styles.hintsButton} width={56} height={30} onClick={hintChars}>
+                            <Button ref={hintsRef}  className={styles.hintsButton} width={56} height={30} onClick={primaryHintChars}>
                                 <Image className={styles.hintsImage} src={Lamp} />
                                 <Text className={styles.hintsText} size={18} weight={400} color="#FFFFFF">{hintsAmount}</Text>
                             </Button>
@@ -118,7 +120,7 @@ export function GameContent(props) {
                             </CSSTransition>
                         </div>
                         <Board ref={boardRef} className={styles.board} board={board} onSelectedChange={selectCell}/>
-                        <BoardChars ref={charsRef} className={styles.chars} chars={chars} onSelect={selectChar}
+                        <BoardChars ref={charsRef} className={styles.chars} chars={chars} primaryHintedChars={primaryHintedChars} secondaryHintedChars={secondaryHintedChars} onSelect={selectChar}
                                     onRefresh={refreshChars}/>
                         <div className={styles.actions}>
                             <div ref={actionsGroup1Ref} className={styles.actionsGroup}>

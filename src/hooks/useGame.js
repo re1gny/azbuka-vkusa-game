@@ -13,6 +13,7 @@ import {
     MAX_BREAKFAST_WORDS,
     WORDS_WITH_INFO,
     MAX_HINTS,
+    INACTIVE_HINT_TIMEOUT,
 } from "../constants/game";
 import {getLast} from "../utils/getLast";
 import {createBoard} from "../utils/createBoard";
@@ -20,6 +21,8 @@ import {createChars} from "../utils/createChars";
 import {isSameBoardCell} from "../utils/isSameBoardCell";
 import {parseBoard} from "../utils/parseBoard";
 import {shuffleArray} from "../utils/shuffleArray";
+import {getPrimaryHintedChars} from "../utils/getPrimaryHintedChars";
+import {getSecondaryHintedChars} from "../utils/getSecondaryHintedChars";
 
 export function useGame(params) {
     const {
@@ -30,6 +33,7 @@ export function useGame(params) {
         careerWords: allCareerWords = CAREER_WORDS,
         breakfastWords: allBreakfastWords = BREAKFAST_WORDS,
         withSuccessText = true,
+        withSecondaryHint = true,
         chars: allChars,
         onWin,
         onComplete,
@@ -61,9 +65,12 @@ export function useGame(params) {
     })
     const [chars, setChars] = useState(() => createChars(allChars, allCareerWords, allBreakfastWords, careerWords, breakfastWords))
     const [hintsAmount, setHintsAmount] = useState(MAX_HINTS)
+    const [primaryHintedChars, setPrimaryHintedChars] = useState(null)
+    const [secondaryHintedChars, setSecondaryHintedChars] = useState(null)
+    const secondaryHintCharsTimerRef = useRef()
     const board = useMemo(() => getLast(boards), [boards])
 
-    const reset = useCallback((position) => {
+    const reset = useCallback(() => {
         const boards = [createBoard(initialBoardsState?.[0], boardRows, boardColumns)]
 
         setUnknownWordErrorShown(false)
@@ -113,9 +120,7 @@ export function useGame(params) {
         }))
 
         setChars(produce(chars, (draft) => {
-            if (draft[index]) {
-                draft[index].cell = getLast(boards).selected
-            }
+            draft.entries[index].cell = getLast(boards).selected
         }))
     }, [boards, chars])
 
@@ -190,6 +195,7 @@ export function useGame(params) {
 
     const refreshChars = useCallback(() => {
         setChars(createChars(allChars, allCareerWords, allBreakfastWords, careerWords, breakfastWords))
+        setPrimaryHintedChars(null)
     }, [allCareerWords, allBreakfastWords, careerWords, breakfastWords, allChars])
 
     const completeBoard = useCallback(() => {
@@ -252,6 +258,12 @@ export function useGame(params) {
             })
         }))
 
+        const newChars = produce(chars, (draft) => {
+            draft.words = draft.words.filter(item => item !== word)
+        })
+
+        setChars(newChars)
+
         if (wordsWithInfo.includes(word)) {
             showWordInfo(word)
         }
@@ -267,6 +279,11 @@ export function useGame(params) {
         }
 
         showSuccessText()
+        setPrimaryHintedChars(null)
+
+        if (!newChars.words.length) {
+            refreshChars()
+        }
     }, [
         wordsWithInfo,
         careerWords,
@@ -292,7 +309,7 @@ export function useGame(params) {
         }
 
         setChars(produce(chars, (draft) => {
-            const char = draft.find(({cell}) => isSameBoardCell(cell, getLast(boards).selected))
+            const char = draft.entries.find(({cell}) => isSameBoardCell(cell, getLast(boards).selected))
             if (char) {
                 char.cell = null
             }
@@ -304,13 +321,34 @@ export function useGame(params) {
         }))
     }, [boards, chars])
 
-    const hintChars = useCallback(() => {
-        if (hintsAmount <= 0) {
+    const primaryHintChars = useCallback(() => {
+        if (hintsAmount <= 0 || primaryHintedChars || !chars.words.length) {
             return
         }
 
+        setPrimaryHintedChars(getPrimaryHintedChars(chars, board))
         setHintsAmount(prev => prev - 1)
-    }, [hintsAmount])
+    }, [hintsAmount, chars, board, primaryHintedChars])
+
+    const runSecondaryHintChars = useCallback(() => {
+        secondaryHintCharsTimerRef.current = setTimeout(() => {
+            if (!chars.words.length) {
+                return
+            }
+
+            setSecondaryHintedChars(getSecondaryHintedChars(chars))
+
+            secondaryHintCharsTimerRef.current = setTimeout(() => {
+                setSecondaryHintedChars(null)
+                runSecondaryHintChars()
+            }, 3000)
+        }, INACTIVE_HINT_TIMEOUT)
+    }, [chars])
+
+    const clearSecondaryHintChars = useCallback(() => {
+        clearTimeout(secondaryHintCharsTimerRef.current)
+        setSecondaryHintedChars(null)
+    }, [])
 
     const processedParams = useMemo(() => {
         if (wordInfoShown) {
@@ -331,6 +369,14 @@ export function useGame(params) {
             onComplete?.()
         }
     }, [isCompleting, wordInfoShown]);
+
+    useEffect(() => {
+        if (withSecondaryHint) {
+            runSecondaryHintChars()
+
+            return clearSecondaryHintChars
+        }
+    }, [withSecondaryHint, runSecondaryHintChars, clearSecondaryHintChars]);
 
     return {
         successText,
@@ -360,8 +406,10 @@ export function useGame(params) {
         boards,
         board,
         chars,
+        primaryHintedChars,
+        secondaryHintedChars,
         hintsAmount,
-        hintChars,
+        primaryHintChars,
         selectCell,
         selectChar,
         completeBoard,

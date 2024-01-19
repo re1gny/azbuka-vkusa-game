@@ -7,7 +7,7 @@ import {Image} from "../Image";
 import styles from './BoardChars.module.scss'
 
 function BoardCharsComponent(props, ref) {
-    const {className, chars, onSelect, onRefresh} = props
+    const {className, chars, primaryHintedChars, secondaryHintedChars, onSelect, onRefresh} = props
 
     return (
         <div ref={ref} className={cn(styles.wrapper, className)}>
@@ -15,10 +15,10 @@ function BoardCharsComponent(props, ref) {
                 <Image className={styles.refreshButtonIcon} src={RefreshIcon} />
             </Button>
             <div className={styles.boardChars}>
-                {chars.map(({char, cell}, index) => (
+                {chars.entries.map(({char, cell}, index) => (
                     <div
                         key={index}
-                        className={cn(styles.boardChar, !!cell && styles.empty)}
+                        className={cn(styles.boardChar, !!cell && styles.empty, primaryHintedChars?.includes(index) && styles.primaryHinted, secondaryHintedChars?.includes(index) && styles.secondaryHinted)}
                         onClick={() => onSelect?.(char, index)}
                     >
                         {!cell && <Text size={20} weight={400}>{char}</Text>}

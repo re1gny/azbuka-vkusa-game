@@ -26,13 +26,41 @@
   border-radius: calc(8px * var(--size-ratio));
   background-color: #FFE3A6;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .empty {
   opacity: 0.5;
 }
 
+.primaryHinted {
+  background-color: #DAFFC2;
+}
+
+.secondaryHinted {
+  transform-origin: center;
+  animation: shake 0.25s linear infinite;
+}
+
 .refreshButtonIcon {
   width: calc(18.33px * var(--size-ratio));
   height: calc(17.45px * var(--size-ratio));
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(0);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
 }
