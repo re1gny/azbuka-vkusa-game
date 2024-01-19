@@ -1,4 +1,5 @@
 import {shuffleArray} from "./shuffleArray";
+import {isBoardCellConfirmed} from "./isBoardCellConfirmed";
 
 export function getPrimaryHintedChars(chars, board) {
     const {words, entries} = chars
@@ -7,9 +8,9 @@ export function getPrimaryHintedChars(chars, board) {
     const word = shuffleArray(words)[0]
 
     word.split('').forEach(char => {
-        const index = entries.findIndex((entry, index) => entry.char === char && !hintedChars.includes(index))
+        const index = entries.findIndex((entry, index) => entry.char === char && !hintedChars.includes(index) && (!entry.cell || !isBoardCellConfirmed(entry.cell, board)))
 
-        if (~index && (!entries[index].cell || !board.confirmed[entries[index].cell[1]][entries[index].cell[0]])) {
+        if (~index) {
             hintedChars.push(index)
         }
     })
