@@ -23,6 +23,11 @@ export function WinContent(props) {
 
         if (phone && isAgreed) {
             setIsSuccess(true)
+
+            const url = `https://script.google.com/macros/s/AKfycbzvm75K7Zj-3AO4M1Z0cRExiENQtY01TfgGJ56aH_TicuVCT-VmGEZJFLDdU6aGd8Na/exec?phone=${phone}`
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', url);
+            xhr.send();
         }
     }
 
@@ -35,7 +40,7 @@ export function WinContent(props) {
                 <Input className={styles.phoneInput} width={286} type="tel" placeholder="+7 (999) 123-45-67" disabled={isSuccess} value={phone} onChange={setPhone}/>
                 <Checkbox className={styles.phoneCheckbox} disabled={isSuccess} value={isAgreed} onChange={setIsAgreed}>
                     <Text className={styles.phoneCheckboxText} size={14} align="left">
-                        Я&nbsp;согласен(а) на&nbsp;<a className={styles.phoneCheckboxLink} href="" target="_blank">обработку персональных данных</a> и&nbsp;получение информационных сообщений
+                        Я&nbsp;согласен(а) на&nbsp;<a className={styles.phoneCheckboxLink} href="https://fut.ru/personal_data_policy/" target="_blank">обработку персональных данных</a> и&nbsp;получение информационных сообщений
                     </Text>
                 </Checkbox>
                 <Button className={styles.sendPhoneButton} width={284} height={44} type="submit" disabled={isSuccess}>
