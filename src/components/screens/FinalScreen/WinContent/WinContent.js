@@ -7,6 +7,7 @@ import {Button} from "../../../Button";
 import {Input} from "../../../Input";
 import {Checkbox} from "../../../Checkbox";
 import {Image} from "../../../Image";
+import {goToVacancies} from "../../../../utils/goToVacancies";
 import styles from "./WinContent.module.scss";
 
 const SWITCH_ANIMATION_DURATION = parseInt(styles.switchAnimationDuration)
@@ -57,7 +58,7 @@ export function WinContent(props) {
             </form>
             <div className={styles.findJobWrapper}>
                 <Text size={20}>А&nbsp;чтобы найти своё место в&nbsp;нашей команде, переходи на&nbsp;<Text as="span" size={20} weight={500}>карьерный сайт</Text>:</Text>
-                <Button className={styles.findJobButton} width={284} height={44} color="#0B4F38">
+                <Button className={styles.findJobButton} width={284} height={44} color="#0B4F38" onClick={goToVacancies}>
                     <Text as="span" size={20} weight={500} color="#FFFFFF">Найти работу</Text>
                 </Button>
             </div>
