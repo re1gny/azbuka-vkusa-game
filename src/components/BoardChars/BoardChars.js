@@ -18,7 +18,7 @@ function BoardCharsComponent(props, ref) {
                 {chars.entries.map(({char, cell}, index) => (
                     <div
                         key={index}
-                        className={cn(styles.boardChar, !!cell && styles.empty, primaryHintedChars?.includes(index) && styles.primaryHinted, secondaryHintedChars?.includes(index) && styles.secondaryHinted)}
+                        className={cn(styles.boardChar, !!cell && styles.empty, primaryHintedChars?.entries?.includes(index) && styles.primaryHinted, secondaryHintedChars?.entries?.includes(index) && styles.secondaryHinted)}
                         onClick={() => onSelect?.(char, index)}
                     >
                         {!cell && <Text size={20} weight={400}>{char}</Text>}

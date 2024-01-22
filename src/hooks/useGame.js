@@ -324,11 +324,11 @@ export function useGame(params) {
     }, [boards, chars])
 
     const primaryHintChars = useCallback(() => {
-        if (hintsAmount <= 0 || primaryHintedChars || !chars.words.length) {
+        if (hintsAmount <= 0 || !chars.words.length) {
             return
         }
 
-        setPrimaryHintedChars(getPrimaryHintedChars(chars, board))
+        setPrimaryHintedChars(getPrimaryHintedChars(primaryHintedChars, chars, board))
         setHintsAmount(prev => prev - 1)
     }, [hintsAmount, chars, board, primaryHintedChars])
 
