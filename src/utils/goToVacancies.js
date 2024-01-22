@@ -1,3 +1,3 @@
 export function goToVacancies() {
-    window.open('#', '_blank')
+    window.open('https://hh.ru/employer/2120', '_blank')
 }

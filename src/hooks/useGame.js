@@ -120,7 +120,9 @@ export function useGame(params) {
         }))
 
         setChars(produce(chars, (draft) => {
-            draft.entries[index].cell = getLast(boards).selected
+            if (draft.entries[index]) {
+                draft.entries[index].cell = getLast(boards).selected
+            }
         }))
     }, [boards, chars])
 

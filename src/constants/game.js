@@ -47,6 +47,7 @@ export const CAREER_WORDS = [
     'навык',
     'план',
     'оффер',
+    'куратор',
 ]
 export const BREAKFAST_WORDS = [
     'кофе',
@@ -152,8 +153,8 @@ export const SUCCESS_TEXTS = [
 ]
 export const REQUIRED_CAREER_WORDS = 5
 export const REQUIRED_BREAKFAST_WORDS = 10
-export const MAX_CAREER_WORDS = 42
-export const MAX_BREAKFAST_WORDS = 62
+export const MAX_CAREER_WORDS = CAREER_WORDS.length
+export const MAX_BREAKFAST_WORDS = BREAKFAST_WORDS.length
 export const WORDS_WITH_INFO = [
     'кофе',
     'блин',
