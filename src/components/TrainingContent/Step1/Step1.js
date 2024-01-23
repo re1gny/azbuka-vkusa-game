@@ -3,7 +3,6 @@ import cn from "classnames";
 import styles from './Step1.module.scss'
 import {Text} from "../../Text";
 import {Panel} from "../../Panel";
-import {Board} from "../../Board";
 import {Button} from "../../Button";
 import {Image} from "../../Image";
 import ArrowRightShort from "../../../assets/images/arrowRightShort.svg";
@@ -58,20 +57,20 @@ export function Step1(props) {
         <div className={cn(styles.wrapper, className)}>
             <Text size={44} weight={500}>навигация</Text>
             <div className={styles.panels}>
-                <Panel className={styles.panel1} padding={[12, 16]} withBorder color="#FFF6DB">
+                <Panel className={styles.panel1} padding={[10, 16]} withBorder color="#FFF6DB">
                     <div className={styles.cells}>
                         <BoardCell className={styles.cell1} selected={isBoardCellSelected([0, 0], board)} />
                         <BoardCell className={styles.cell2} selected={isBoardCellSelected([0, 1], board)} />
                     </div>
                     <Text className={styles.panel1Text1}>
-                        <Text as="span" weight={500}>Выделяй&nbsp;пустую клетку</Text>, в&nbsp;которую собираешься поставить букву. Далее <Text as="span" weight={500}>по&nbsp;порядку вводи буквы из&nbsp;набора</Text>. Здесь всегда <Text as="span" weight={500}>есть&nbsp;1&nbsp;или&nbsp;2&nbsp;слова</Text>!
+                        <Text as="span" weight={500}>Выделяй&nbsp;пустую клетку</Text>, в&nbsp;которую собираешься поставить букву. Далее <Text as="span" weight={500}>по&nbsp;порядку вводи буквы из&nbsp;набора</Text>. Здесь всегда <Text as="span" weight={500}>есть&nbsp;минимум 1 слово</Text>!
                     </Text>
-                    <BoardChars className={styles.chars} chars={chars} />
+                    <BoardChars className={styles.chars} chars={chars} secondaryHintedChars={{entries: [7]}} />
                     <Text className={styles.panel1Text2}>
-                        <Text as="span" weight={500}>Обновляй</Text> его&nbsp;сколько угодно, если&nbsp;не&nbsp;можешь составить слово.
+                        Мы <Text as="span" weight={500}>подскажем первую букву</Text> каждого слова. <Text as="span" weight={500}>Обновляй</Text> набор&nbsp;сколько угодно, если&nbsp;на ум ничего не приходит.
                     </Text>
                 </Panel>
-                <Panel className={styles.panel2} padding={[12, 16]} withBorder color="#FFF6DB">
+                <Panel className={styles.panel2} padding={[10, 16]} withBorder color="#FFF6DB">
                     <div className={styles.item}>
                         <div className={styles.itemButtonWrapper}>
                             <CompleteWordButton className={styles.itemButton}/>

@@ -27,6 +27,7 @@ import {getSecondaryHintedChars} from "../utils/getSecondaryHintedChars";
 export function useGame(params) {
     const {
         initialBoardsState = [],
+        initialSecondaryHintedChars = [],
         wordsWithInfo = WORDS_WITH_INFO,
         boardRows = BOARD_ROWS,
         boardColumns = BOARD_COLUMNS,
@@ -66,7 +67,7 @@ export function useGame(params) {
     const [chars, setChars] = useState(() => createChars(allChars, allCareerWords, allBreakfastWords, careerWords, breakfastWords))
     const [hintsAmount, setHintsAmount] = useState(MAX_HINTS)
     const [primaryHintedChars, setPrimaryHintedChars] = useState(null)
-    const [secondaryHintedChars, setSecondaryHintedChars] = useState(null)
+    const [secondaryHintedChars, setSecondaryHintedChars] = useState(initialSecondaryHintedChars ? {entries: initialSecondaryHintedChars} : null)
     const secondaryHintCharsTimerRef = useRef()
     const board = useMemo(() => getLast(boards), [boards])
 

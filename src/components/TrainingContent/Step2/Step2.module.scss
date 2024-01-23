@@ -3,14 +3,14 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
-  padding: calc(90px * var(--size-ratio)) calc(20px * var(--size-ratio)) calc(20px * var(--size-ratio));
+  padding: calc(60px * var(--size-ratio)) calc(20px * var(--size-ratio)) calc(20px * var(--size-ratio));
 }
 
 .panel {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: calc(13px * var(--size-ratio));
+  margin-top: calc(23px * var(--size-ratio));
 }
 
 .boardWrapper {
@@ -42,7 +42,7 @@
 }
 
 .nextButton {
-  margin-top: calc(43px * var(--size-ratio));
+  margin-top: calc(19px * var(--size-ratio));
 }
 
 .nextButtonIcon {

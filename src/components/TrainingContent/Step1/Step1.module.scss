@@ -3,11 +3,11 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
-  padding: calc(90px * var(--size-ratio)) calc(20px * var(--size-ratio)) calc(20px * var(--size-ratio));
+  padding: calc(60px * var(--size-ratio)) calc(20px * var(--size-ratio)) calc(20px * var(--size-ratio));
 }
 
 .panels {
-  margin-top: calc(8px * var(--size-ratio));
+  margin-top: calc(23px * var(--size-ratio));
 }
 
 .panel1 {
@@ -50,7 +50,7 @@
 .panel2 {
   display: flex;
   flex-direction: column;
-  margin-top: calc(10px * var(--size-ratio));
+  margin-top: calc(12px * var(--size-ratio));
 }
 
 .item {
@@ -73,7 +73,7 @@
 }
 
 .nextButton {
-  margin-top: calc(18px * var(--size-ratio));
+  margin-top: calc(15px * var(--size-ratio));
 }
 
 .nextButtonIcon {

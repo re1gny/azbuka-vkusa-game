@@ -32,7 +32,7 @@ const TRAINING_ANIMATION_DURATION = parseInt(styles.trainingAnimationDuration)
 const TRAINING_ANIMATION_NAME = styles.trainingAnimationName
 
 export function GameContent(props) {
-    const {className, charsRef, boardRef, hintsRef, actionsGroup1Ref, actionsGroup2Ref, onComplete, ...game} = props
+    const {className, charsRef, boardRef, hintsRef, helpRef, actionsGroup1Ref, actionsGroup2Ref, helpDisabled, onComplete, ...game} = props
     const {
         unknownWordErrorShown,
         unknownWordErrorParam,
@@ -81,7 +81,7 @@ export function GameContent(props) {
                                 <Text className={styles.hintsText} size={18} weight={400} color="#FFFFFF">{hintsAmount}</Text>
                             </Button>
                             <Image className={styles.logo} src={Logo}/>
-                            <Button className={styles.helpButton} width={31} height={31} onClick={() => setTrainingShown(true)}>
+                            <Button ref={helpRef} className={styles.helpButton} disabled={helpDisabled} width={31} height={31} onClick={() => setTrainingShown(true)}>
                                 <Text size={20} weight={400}>?</Text>
                             </Button>
                         </div>

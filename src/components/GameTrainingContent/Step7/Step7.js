@@ -7,14 +7,17 @@ import {Button} from "../../Button";
 import {Text} from "../../Text";
 import {Panel} from "../../Panel";
 import {Board} from "../../Board";
-import styles from './Step3.module.scss'
+import styles from './Step7.module.scss'
 
-export function Step3(props) {
-    const {className, step, onNextStep, onPrevStep, ...game} = props
+export function Step7(props) {
+    const {className, step, onPrevStep, onNextStep, onComplete, ...game} = props
     const {board} = game
 
     return (
         <div className={cn(styles.wrapper, className)}>
+            <Button className={styles.backButton} width={165} height={37} color="#0B4F38" onClick={onComplete}>
+                <Text as="span" weight={400} color="#FFFFFF">Вернуться в игру</Text>
+            </Button>
             <Text size={44} weight={500}>как можно</Text>
             <Panel className={styles.panel} padding={[20, 25, 26]} withBorder color="#FFF6DB">
                 <Text size={20}>
@@ -27,10 +30,12 @@ export function Step3(props) {
                 </div>
             </Panel>
             <div className={styles.buttons}>
-                <Button className={styles.prevButton} width={123} height={36} onClick={onPrevStep}>
+                <Button className={styles.prevButton} width={80} height={36}
+                        onClick={onPrevStep}>
                     <Image className={styles.prevButtonIcon} src={ArrowRightShort}/>
                 </Button>
-                <Button className={styles.nextButton} width={123} height={36} onClick={onNextStep}>
+                <Button className={styles.nextButton} width={80} height={36}
+                        onClick={onNextStep}>
                     <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
                 </Button>
             </div>

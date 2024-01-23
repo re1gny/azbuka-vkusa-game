@@ -17,7 +17,7 @@ const ANIMATION_DURATION = parseInt(styles.animationDuration)
 const ANIMATION_NAME = styles.animationName
 
 export function Step12345(props) {
-    const {className, step, onNextStep, ...game} = props
+    const {className, step, onPrevStep, onNextStep, onComplete, ...game} = props
     const {selectCell, selectChar, completeWord, reset} = game
     const isLoopingRef = useRef(false)
     const boardRef = useRef()
@@ -89,6 +89,7 @@ export function Step12345(props) {
 
             return () => {
                 isLoopingRef.current = false
+                reset()
             }
         }
     }, [step])
@@ -108,7 +109,10 @@ export function Step12345(props) {
             />
             <SwitchTransition mode='out-in'>
                 <CSSTransition key={step} timeout={ANIMATION_DURATION} classNames={ANIMATION_NAME}>
-                    <div className={styles.panels}>
+                    <div className={styles.hints}>
+                        <Button className={styles.backButton} width={165} height={37} color="#0B4F38" onClick={onComplete}>
+                            <Text as="span" weight={400} color="#FFFFFF">Вернуться в игру</Text>
+                        </Button>
                         {step === 1 && (
                             <>
                                 <Panel className={styles.step1Panel1}>
@@ -141,21 +145,36 @@ export function Step12345(props) {
                                     <Text as="span" weight={500}>Набор букв</Text> находится внизу. {'\n'}В&nbsp;нём&nbsp;всегда есть 1&nbsp;или&nbsp;2&nbsp;загаданных слова! {'\n'}Нажимай&nbsp;<Text as="span" weight={500}>кнопку обновления</Text>, если&nbsp;не&nbsp;можешь их&nbsp;найти. {'\n'}Обновлять набор букв можно сколько угодно.
                                     {'\n\n'}Псс… Тут&nbsp;будут <Text as="span" weight={500}>подсказки</Text>! Когда долго не&nbsp;удаётся найти слово, отобразится его&nbsp;<Text as="span" weight={500}>первая буква</Text>. Если&nbsp;слова два, то&nbsp;покажем&nbsp;обе.
                                 </Text>
-                                <Button className={styles.step2PanelNextButton} width={79.6} height={36}
-                                        onClick={onNextStep}>
-                                    <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
-                                </Button>
+                                <div className={styles.step2Buttons}>
+                                    <Button className={styles.prevButton} width={80} height={36}
+                                            onClick={onPrevStep}>
+                                        <Image className={styles.prevButtonIcon} src={ArrowRightShort}/>
+                                    </Button>
+                                    <Button className={styles.nextButton} width={80} height={36}
+                                            onClick={onNextStep}>
+                                        <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
+                                    </Button>
+                                </div>
                             </Panel>
                         )}
                         {step === 3 && (
                             <Panel className={styles.step3Panel}>
                                 <Text>
-                                    На&nbsp;всю&nbsp;игру у&nbsp;тебя есть&nbsp;<Text as="span" weight={500}>{MAX_HINTS}&nbsp;подсказок</Text>, которые покажут, <Text as="span" weight={500}>какие буквы</Text> есть&nbsp;в&nbsp;одном слове.
+                                    На&nbsp;всю&nbsp;игру у&nbsp;тебя есть&nbsp;<Text as="span"
+                                                                                      weight={500}>{MAX_HINTS}&nbsp;подсказок</Text>,
+                                    которые покажут, <Text as="span" weight={500}>какие
+                                    буквы</Text> есть&nbsp;в&nbsp;одном слове.
                                 </Text>
-                                <Button className={styles.step3PanelNextButton} width={123.78} height={36}
-                                        onClick={onNextStep}>
-                                    <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
-                                </Button>
+                                <div className={styles.step3Buttons}>
+                                    <Button className={styles.prevButton} width={80} height={36}
+                                            onClick={onPrevStep}>
+                                        <Image className={styles.prevButtonIcon} src={ArrowRightShort}/>
+                                    </Button>
+                                    <Button className={styles.nextButton} width={80} height={36}
+                                            onClick={onNextStep}>
+                                        <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
+                                    </Button>
+                                </div>
                             </Panel>
                         )}
                         {step === 4 && (
@@ -163,16 +182,21 @@ export function Step12345(props) {
                                 <Text>
                                     Слово готово&nbsp;— <Text as="span" weight={500}>отправляй</Text>!
                                     {'\n'}
-                                    Помни, отправлять можно
-                                    по&nbsp;одному слову за&nbsp;раз.
+                                    Помни, отправлять можно <Text as="span" weight={500}>по&nbsp;одному слову за&nbsp;раз</Text>.
                                     {'\n\n'}
                                     Если что‑то пошло не&nbsp;так&nbsp;— выбери ячейку и&nbsp;<Text as="span"
                                                                                                     weight={500}>удали</Text> букву.
                                 </Text>
-                                <Button className={styles.step4PanelNextButton} width={123.78} height={36}
-                                        onClick={onNextStep}>
-                                    <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
-                                </Button>
+                                <div className={styles.step4Buttons}>
+                                    <Button className={styles.prevButton} width={80} height={36}
+                                            onClick={onPrevStep}>
+                                        <Image className={styles.prevButtonIcon} src={ArrowRightShort}/>
+                                    </Button>
+                                    <Button className={styles.nextButton} width={80} height={36}
+                                            onClick={onNextStep}>
+                                        <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
+                                    </Button>
+                                </div>
                             </Panel>
                         )}
                         {step === 5 && (
@@ -185,10 +209,16 @@ export function Step12345(props) {
                                     as="span"
                                     weight={500}>5&nbsp;полей</Text>.
                                 </Text>
-                                <Button className={styles.step5PanelNextButton} width={123.78} height={36}
-                                        onClick={onNextStep}>
-                                    <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
-                                </Button>
+                                <div className={styles.step5Buttons}>
+                                    <Button className={styles.prevButton} width={80} height={36}
+                                            onClick={onPrevStep}>
+                                        <Image className={styles.prevButtonIcon} src={ArrowRightShort}/>
+                                    </Button>
+                                    <Button className={styles.nextButton} width={80} height={36}
+                                            onClick={onNextStep}>
+                                        <Image className={styles.nextButtonIcon} src={ArrowRightShort}/>
+                                    </Button>
+                                </div>
                             </Panel>
                         )}
                     </div>

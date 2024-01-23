@@ -22,12 +22,19 @@ $animation-name: switch;
   transition: clip-path $animation-duration;
 }
 
-.panels {
+.hints {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.backButton {
+  position: absolute;
+  top: calc(17px * var(--size-ratio));
+  right: calc(32px * var(--size-ratio));
+  z-index: 3;
 }
 
 .step1Panel1 {
@@ -55,6 +62,16 @@ $animation-name: switch;
   margin-top: calc(18px * var(--size-ratio));
 }
 
+.nextButton {
+  margin-left: calc(90px * var(--size-ratio));
+}
+
+.prevButtonIcon {
+  width: calc(46px * var(--size-ratio));
+  height: calc(16px * var(--size-ratio));
+  transform: rotate(-180deg);
+}
+
 .nextButtonIcon {
   width: calc(46px * var(--size-ratio));
   height: calc(16px * var(--size-ratio));
@@ -72,15 +89,17 @@ $animation-name: switch;
   z-index: 3;
 }
 
-.step2PanelNextButton {
+.step2Buttons {
+  display: flex;
+  align-items: center;
   margin-top: calc(21px * var(--size-ratio));
 }
 
 .step3Panel {
   position: absolute;
-  top: calc(98px * var(--size-ratio));
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   width: calc(312px * var(--size-ratio));
   display: flex;
   flex-direction: column;
@@ -88,15 +107,17 @@ $animation-name: switch;
   z-index: 3;
 }
 
-.step3PanelNextButton {
+.step3Buttons {
+  display: flex;
+  align-items: center;
   margin-top: calc(21px * var(--size-ratio));
 }
 
 .step4Panel {
   position: absolute;
-  top: calc(298px * var(--size-ratio));
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   width: calc(312px * var(--size-ratio));
   display: flex;
   flex-direction: column;
@@ -104,15 +125,17 @@ $animation-name: switch;
   z-index: 3;
 }
 
-.step4PanelNextButton {
+.step4Buttons {
+  display: flex;
+  align-items: center;
   margin-top: calc(21px * var(--size-ratio));
 }
 
 .step5Panel {
   position: absolute;
-  top: calc(255px * var(--size-ratio));
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   width: calc(312px * var(--size-ratio));
   display: flex;
   flex-direction: column;
@@ -120,7 +143,9 @@ $animation-name: switch;
   z-index: 3;
 }
 
-.step5PanelNextButton {
+.step5Buttons {
+  display: flex;
+  align-items: center;
   margin-top: calc(21px * var(--size-ratio));
 }
 

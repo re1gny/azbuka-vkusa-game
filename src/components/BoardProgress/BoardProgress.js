@@ -11,7 +11,7 @@ export function BoardProgress(props) {
             <Text as="span" size={18} weight={400}>{name}:</Text>
             <Text className={styles.amounts} as="span" size={16} weight={400}>
                 <Text as="span" size={16} weight={400} color={isRequiredReached ? '#0B4F38' : '#6DB63D'}>{current}</Text>
-                <Text as="span" size={16} weight={400}>/{max}</Text>
+                <Text as="span" size={16} weight={400}>/{required}</Text>
             </Text>
         </div>
     )
