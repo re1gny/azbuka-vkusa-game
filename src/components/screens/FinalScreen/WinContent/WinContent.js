@@ -8,6 +8,7 @@ import {Input} from "../../../Input";
 import {Checkbox} from "../../../Checkbox";
 import {Image} from "../../../Image";
 import {goToVacancies} from "../../../../utils/goToVacancies";
+import {reachMetrikaGoal} from "../../../../utils/reachMetrikaGoal";
 import styles from "./WinContent.module.scss";
 
 const SWITCH_ANIMATION_DURATION = parseInt(styles.switchAnimationDuration)
@@ -24,12 +25,18 @@ export function WinContent(props) {
 
         if (phone && isAgreed) {
             setIsSuccess(true)
+            reachMetrikaGoal('number')
 
             const url = `https://script.google.com/macros/s/AKfycbzvm75K7Zj-3AO4M1Z0cRExiENQtY01TfgGJ56aH_TicuVCT-VmGEZJFLDdU6aGd8Na/exec?phone=${phone}`
             const xhr = new XMLHttpRequest();
             xhr.open('POST', url);
             xhr.send();
         }
+    }
+
+    function handleFindJob() {
+        reachMetrikaGoal(isSuccess ? 'work1' : 'work2')
+        goToVacancies()
     }
 
     return (
@@ -58,7 +65,7 @@ export function WinContent(props) {
             </form>
             <div className={styles.findJobWrapper}>
                 <Text size={20}>А&nbsp;чтобы найти своё место в&nbsp;нашей команде, переходи на&nbsp;<Text as="span" size={20} weight={500}>карьерный сайт</Text>:</Text>
-                <Button className={styles.findJobButton} width={284} height={44} color="#0B4F38" onClick={goToVacancies}>
+                <Button className={styles.findJobButton} width={284} height={44} color="#0B4F38" onClick={handleFindJob}>
                     <Text as="span" size={20} weight={500} color="#FFFFFF">Найти работу</Text>
                 </Button>
             </div>

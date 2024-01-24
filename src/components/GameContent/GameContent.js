@@ -24,6 +24,7 @@ import {RepeatedWordErrorModal} from "../RepeatedWordErrorModal";
 import {MultipleWordsErrorModal} from "../MultipleWordsErrorModal";
 import {WordInfoModal} from "../WordInfoModal";
 import {WinConfirmModal} from "../WinConfirmModal";
+import {reachMetrikaGoal} from "../../utils/reachMetrikaGoal";
 import styles from "./GameContent.module.scss";
 
 const SUCCESS_TEXT_ANIMATION_DURATION = parseInt(styles.successTextAnimationDuration)
@@ -67,6 +68,32 @@ export function GameContent(props) {
         primaryHintChars,
     } = game
     const [trainingShown, setTrainingShown] = useState(false)
+
+    function handleComplete() {
+        const events = {
+            1: 'prize1',
+            2: 'prize2',
+            3: 'prize3',
+            4: 'prize4',
+            5: 'prize5',
+        }
+
+        reachMetrikaGoal(events[boards.length])
+        onComplete()
+    }
+
+    function handleContinue() {
+        const events = {
+            1: 'resume1',
+            2: 'resume2',
+            3: 'resume3',
+            4: 'resume4',
+            5: 'resume5',
+        }
+
+        reachMetrikaGoal(events[boards.length])
+        closeWinConfirm()
+    }
 
     return (
         <SwitchTransition mode='out-in'>
@@ -153,8 +180,8 @@ export function GameContent(props) {
                         />
                         <WinConfirmModal
                             opened={winConfirmShown}
-                            onContinue={closeWinConfirm}
-                            onFinish={onComplete}
+                            onContinue={handleContinue}
+                            onFinish={handleComplete}
                         />
                     </div>
                 )}

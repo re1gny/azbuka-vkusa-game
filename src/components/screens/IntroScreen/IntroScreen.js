@@ -6,10 +6,16 @@ import {Text} from "../../Text";
 import {Image} from "../../Image";
 import {Button} from "../../Button";
 import {REQUIRED_BREAKFAST_WORDS, REQUIRED_CAREER_WORDS} from "../../../constants/game";
+import {reachMetrikaGoal} from "../../../utils/reachMetrikaGoal";
 import styles from './IntroScreen.module.scss'
 
 export function IntroScreen() {
     const {next} = useProgress()
+
+    function handleNext() {
+        reachMetrikaGoal('rules')
+        next()
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -24,7 +30,7 @@ export function IntroScreen() {
                 {'\n\n'}
                 Удачи и&nbsp;приятного аппетита!
             </Text>
-            <Button className={styles.nextButton} width={284} height={44} onClick={next}>
+            <Button className={styles.nextButton} width={284} height={44} onClick={handleNext}>
                 <Text as="span" size={20} weight={500} color="#FFFFFF">Как играть?</Text>
             </Button>
         </div>

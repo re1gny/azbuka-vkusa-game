@@ -1,8 +1,14 @@
 import {useProgress} from "../../../contexts/ProgressContext";
 import {TrainingContent} from "../../TrainingContent";
+import {reachMetrikaGoal} from "../../../utils/reachMetrikaGoal";
 
 export function TrainingScreen() {
     const {next} = useProgress()
 
-    return <TrainingContent onComplete={next} />
+    function handleNext() {
+        reachMetrikaGoal('start')
+        next()
+    }
+
+    return <TrainingContent onComplete={handleNext} />
 }
