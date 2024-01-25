@@ -1,8 +1,8 @@
-import {useCallback, useMemo} from "react";
+import {forwardRef, useCallback, useMemo} from "react";
 import cn from 'classnames'
 import styles from './Input.module.scss'
 
-export function Input(props) {
+function InputComponent(props, ref) {
     const {className, placeholder, width = '100%', type = 'text', pattern, disabled, value, onChange} = props
 
     const formattedWidth = useMemo(() => {
@@ -19,6 +19,7 @@ export function Input(props) {
 
     return (
         <input
+            ref={ref}
             className={cn(styles.input, className)}
             style={{width: formattedWidth}}
             value={value}
@@ -30,3 +31,5 @@ export function Input(props) {
         />
     )
 }
+
+export const Input = forwardRef(InputComponent)

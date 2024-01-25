@@ -1,6 +1,7 @@
 import {CSSTransition, SwitchTransition} from "react-transition-group";
 import {useState} from "react";
 import cn from "classnames";
+import { useIMask } from 'react-imask';
 import Check from "../../../../assets/images/check.svg";
 import {Text} from "../../../Text";
 import {Button} from "../../../Button";
@@ -14,16 +15,25 @@ import styles from "./WinContent.module.scss";
 const SWITCH_ANIMATION_DURATION = parseInt(styles.switchAnimationDuration)
 const SWITCH_ANIMATION_NAME = styles.switchAnimationName
 
+const PHONE_MASK_OPTIONS = {
+    mask: '+{7} (000) 000-00-00',
+}
+
 export function WinContent(props) {
     const {className} = props
-    const [phone, setPhone] = useState('')
     const [isAgreed, setIsAgreed] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
+    const {
+        ref: phoneInputRef,
+        maskRef,
+        value: phone,
+        setValue: setPhone,
+    } = useIMask(PHONE_MASK_OPTIONS);
 
     function handleSendPhone(e) {
         e.preventDefault()
 
-        if (phone && isAgreed) {
+        if (phone && maskRef.current?.masked?.isComplete && isAgreed) {
             setIsSuccess(true)
             reachMetrikaGoal('number')
 
@@ -45,7 +55,7 @@ export function WinContent(props) {
             <Text size={20}>Комбо-бизнес-завтрак и&nbsp;идеальная работа тебе обеспечены.</Text>
             <form className={styles.phoneWrapper} onSubmit={handleSendPhone}>
                 <Text size={20}>Оставляй номер телефона для&nbsp;участия&nbsp;в&nbsp;<Text as="span" size={20} weight={500}>розыгрыше призов от&nbsp;«Азбуки вкуса»</Text> — результаты будут 1&nbsp;марта:</Text>
-                <Input className={styles.phoneInput} width={286} type="tel" placeholder="+7 (999) 123-45-67" disabled={isSuccess} value={phone} onChange={setPhone}/>
+                <Input ref={phoneInputRef} className={styles.phoneInput} width={286} type="tel" placeholder="+7 (999) 123-45-67" disabled={isSuccess} value={phone} onChange={setPhone}/>
                 <Checkbox className={styles.phoneCheckbox} disabled={isSuccess} value={isAgreed} onChange={setIsAgreed}>
                     <Text className={styles.phoneCheckboxText} size={14} align="left">
                         Я&nbsp;согласен(а) на&nbsp;<a className={styles.phoneCheckboxLink} href="https://fut.ru/personal_data_policy/" target="_blank">обработку персональных данных</a> и&nbsp;получение информационных сообщений
