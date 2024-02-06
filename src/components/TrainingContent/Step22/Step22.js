@@ -7,9 +7,9 @@ import {Button} from "../../Button";
 import {Text} from "../../Text";
 import {Panel} from "../../Panel";
 import {Board} from "../../Board";
-import styles from './Step2.module.scss'
+import styles from './Step22.module.scss'
 
-export function Step2(props) {
+export function Step22(props) {
     const {className, step, onNextStep, ...game} = props
     const {board} = game
 

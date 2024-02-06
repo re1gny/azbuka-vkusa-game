@@ -110,7 +110,7 @@ export function useGame(params) {
     const selectChar = useCallback((char, index) => {
         const board = getLast(boards)
 
-        if (!board.selected || board.chars[board.selected[1]]?.[board.selected[0]] || chars.entries[index].cell) {
+        if (!board.selected || board.chars[board.selected[1]]?.[board.selected[0]] || (chars.entries[index] && chars.entries[index].cell)) {
             return
         }
 

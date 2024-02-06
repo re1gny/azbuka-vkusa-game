@@ -1,4 +1,4 @@
-export const MAX_HINTS = 5
+export const MAX_HINTS = 7
 export const BOARD_COLUMNS = 8
 export const BOARD_ROWS = 9
 export const MAX_BOARDS = 5

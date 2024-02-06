@@ -76,7 +76,7 @@ export function Step1(props) {
                             <CompleteWordButton className={styles.itemButton}/>
                         </div>
                         <Text align="left">
-                            <Text as="span" weight={500} align="left">Отправляй</Text> по&nbsp;одному слову за&nbsp;раз.
+                            <Text as="span" weight={500} align="left">Отправляй по&nbsp;одному слову за&nbsp;раз.</Text>
                         </Text>
                     </div>
                     <div className={styles.item}>
@@ -84,7 +84,7 @@ export function Step1(props) {
                             <ClearCharButton className={styles.itemButton}/>
                         </div>
                         <Text align="left">
-                            Если&nbsp;нужно, выбери ячейку и&nbsp;<Text as="span" weight={500} align="left">удали</Text> букву.
+                            Если&nbsp;нужно, <Text as="span" weight={500} align="left">выбери</Text> ячейку и&nbsp;<Text as="span" weight={500} align="left">удали</Text> букву.
                         </Text>
                     </div>
                     <div className={styles.item}>
