@@ -15,7 +15,7 @@ export function UnknownWordErrorModal(props) {
                     {'\n\n'}
                     Проверь орфографию или&nbsp;попробуй другое слово.
                     {'\n\n'}
-                    Помни, что&nbsp;нужно отправлять по&nbsp;одному слову за&nbsp;раз.
+                    Помни, нужны слова на&nbsp;2&nbsp;темы: <Text as="span" weight={500}>еда&nbsp;на&nbsp;завтрак</Text> и&nbsp;<Text as="span" weight={500}>карьера</Text>.
                 </Text>
                 <Button className={styles.button} width={172} height={36} onClick={onClose}>
                     <Text as="span" weight={500} color="#FFFFFF">Вернуться в игру</Text>

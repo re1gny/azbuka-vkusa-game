@@ -25,13 +25,13 @@ export function IntroScreen() {
                 <Image className={styles.line} src={LineThrough} />
             </div>
             <Image className={styles.subTitle} src={Subtitle} />
-            <Text className={styles.description} size={17}>
-                Мы&nbsp;загадали существительные на&nbsp;2&nbsp;темы: <Text size={17} weight={500} as="span">карьера</Text> и&nbsp;<Text size={17} weight={500} as="span">завтрак</Text>. <Text size={17} weight={500} as="span">Составляй слова</Text> и&nbsp;выигрывай призы! Для&nbsp;участия в&nbsp;розыгрыше нужно составить <Text size={17} weight={500} as="span">по&nbsp;5&nbsp;слов на&nbsp;каждую тему</Text> (всего слов больше).
+            <Text className={styles.description} size={19}>
+                <Text size={19} weight={500} as="span">Составь по&nbsp;5&nbsp;слов</Text> на&nbsp;темы карьеры и&nbsp;завтрака <Text size={19} weight={500} as="span">и&nbsp;выиграй промокод на&nbsp;кофе!</Text>
                 {'\n\n'}
-                Удачи и&nbsp;приятного аппетита!
+                Удачи!
             </Text>
             <Button className={styles.nextButton} width={284} height={44} onClick={handleNext}>
-                <Text as="span" size={20} weight={500} color="#FFFFFF">Как играть?</Text>
+                <Text as="span" size={20} weight={500} color="#FFFFFF">Играть</Text>
             </Button>
         </div>
     )
