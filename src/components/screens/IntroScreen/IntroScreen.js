@@ -26,7 +26,9 @@ export function IntroScreen() {
             </div>
             <Image className={styles.subTitle} src={Subtitle} />
             <Text className={styles.description} size={19}>
-                <Text size={19} weight={500} as="span">Составь по&nbsp;5&nbsp;слов</Text> на&nbsp;темы карьеры и&nbsp;завтрака <Text size={19} weight={500} as="span">и&nbsp;выиграй промокод на&nbsp;кофе!</Text>
+                <Text size={19} weight={500} as="span">Составь по 5 слов</Text> на темы карьеры и завтрака.
+                {'\n\n'}
+                100 счастливчиков получат {'\n'}<Text size={19} weight={500} as="span">купон на бесплатный кофе!</Text>
                 {'\n\n'}
                 Удачи!
             </Text>

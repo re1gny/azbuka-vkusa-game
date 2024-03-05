@@ -51,23 +51,31 @@ export function WinContent(props) {
 
     return (
         <div className={cn(styles.wrapper, className)}>
-            <Text size={20} weight={500}>Как бывает трудно найти нужные слова. Но&nbsp;у&nbsp;тебя получилось!</Text>
+            <Text size={20} weight={500}>Как бывает трудно {'\n'}найти нужные слова.{'\n'}Но&nbsp;у&nbsp;тебя получилось!</Text>
             <Text size={20}>Комбо-бизнес-завтрак и&nbsp;идеальная работа тебе обеспечены.</Text>
             <form className={styles.phoneWrapper} onSubmit={handleSendPhone}>
-                <Text size={20}>Оставляй номер телефона для&nbsp;участия&nbsp;в&nbsp;<Text as="span" size={20} weight={500}>розыгрыше призов от&nbsp;«Азбуки вкуса»</Text> — результаты будут 1&nbsp;марта:</Text>
-                <Input ref={phoneInputRef} className={styles.phoneInput} width={286} type="tel" placeholder="+7 (999) 123-45-67" disabled={isSuccess} value={phone} onChange={setPhone}/>
-                <Checkbox className={styles.phoneCheckbox} disabled={isSuccess} value={isAgreed} onChange={setIsAgreed}>
-                    <Text className={styles.phoneCheckboxText} size={14} align="left">
-                        Я&nbsp;согласен(а) на&nbsp;<a className={styles.phoneCheckboxLink} href="https://fut.ru/personal_data_policy/" target="_blank">обработку персональных данных</a> и&nbsp;получение информационных сообщений
-                    </Text>
-                </Checkbox>
+                <Text size={20}>Оставляй номер телефона для участия в <Text as="span" size={20} weight={500}>розыгрыше кофе</Text>. {'\n'}Результаты опубликуем в ТГ-канале «Азбука вкуса Карьера»:</Text>
+                <div className={styles.fields}>
+                    <Input ref={phoneInputRef} className={styles.phoneInput} width={286} type="tel"
+                           placeholder="+7 (999) 123-45-67" disabled={isSuccess} value={phone} onChange={setPhone}/>
+                    <Checkbox className={styles.phoneCheckbox} disabled={isSuccess} value={isAgreed}
+                              onChange={setIsAgreed}>
+                        <Text className={styles.phoneCheckboxText} size={14} align="left">
+                            Я&nbsp;согласен(а) на&nbsp;<a className={styles.phoneCheckboxLink}
+                                                          href="https://fut.ru/personal_data_policy/" target="_blank">обработку
+                            персональных данных</a> и&nbsp;получение информационных сообщений
+                        </Text>
+                    </Checkbox>
+                </div>
                 <Button className={styles.sendPhoneButton} width={284} height={44} type="submit" disabled={isSuccess}>
                     <SwitchTransition mode='out-in'>
-                        <CSSTransition key={isSuccess} timeout={SWITCH_ANIMATION_DURATION} classNames={SWITCH_ANIMATION_NAME}>
+                        <CSSTransition key={isSuccess} timeout={SWITCH_ANIMATION_DURATION}
+                                       classNames={SWITCH_ANIMATION_NAME}>
                             {isSuccess ? (
-                                <Image className={styles.sendPhoneButtonContent} src={Check} />
+                                <Image className={styles.sendPhoneButtonContent} src={Check}/>
                             ) : (
-                                <Text className={styles.sendPhoneButtonContent} as="span" size={20} weight={500} color="#FFFFFF">Отправить</Text>
+                                <Text className={styles.sendPhoneButtonContent} as="span" size={20} weight={500}
+                                      color="#FFFFFF">Отправить</Text>
                             )}
                         </CSSTransition>
                     </SwitchTransition>
