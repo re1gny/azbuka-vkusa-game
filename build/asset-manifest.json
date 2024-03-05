@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.4254cc5a.css",
-    "main.js": "./static/js/main.a612b567.js",
+    "main.css": "./static/css/main.b0421093.css",
+    "main.js": "./static/js/main.3139e574.js",
     "static/media/AzbukaVkusa-Light.ttf": "./static/media/AzbukaVkusa-Light.53e9ec7ef05aefc4b029.ttf",
     "static/media/AzbukaVkusa-Regular.ttf": "./static/media/AzbukaVkusa-Regular.3415b25d281d19d1385e.ttf",
     "static/media/AzbukaVkusa-Medium.ttf": "./static/media/AzbukaVkusa-Medium.3d29194633f8cc614104.ttf",
@@ -29,11 +29,11 @@
     "static/media/modalCross.svg": "./static/media/modalCross.5f8d8078afa1ad9094bb2387503efd20.svg",
     "static/media/lineThrough.svg": "./static/media/lineThrough.56927248d143e6a4113866fb7b7e36b2.svg",
     "static/media/check.svg": "./static/media/check.fb8d72e4fd2b054d750e24e7c33f5d4a.svg",
-    "main.4254cc5a.css.map": "./static/css/main.4254cc5a.css.map",
-    "main.a612b567.js.map": "./static/js/main.a612b567.js.map"
+    "main.b0421093.css.map": "./static/css/main.b0421093.css.map",
+    "main.3139e574.js.map": "./static/js/main.3139e574.js.map"
   },
   "entrypoints": [
-    "static/css/main.4254cc5a.css",
-    "static/js/main.a612b567.js"
+    "static/css/main.b0421093.css",
+    "static/js/main.3139e574.js"
   ]
 }
